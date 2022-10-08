@@ -5,42 +5,75 @@ pragma solidity ^0.8.9;
 // import "hardhat/console.sol";
 
 contract Reviews {
-
     struct Review {
-      uint chainID;
-      address contractAddress;
-      uint tokenId;
-      string metadataUri;
-      uint id;
+        uint256 chainID;
+        address contractAddress;
+        uint256 tokenId;
+        string metadataUri;
+        uint256 id;
     }
 
     struct ReviewRating {
-      uint reviewId;
-      int score;
-      address rater;
+        uint256 reviewId;
+        int256 score;
+        address rater;
     }
 
-    mapping(uint => Review) public reviews;
-    mapping(uint => ReviewRating) public reviewRatings;
+    mapping(uint256 => Review) public reviews;
+    mapping(uint256 => ReviewRating) public reviewRatings;
 
-    uint public reviewId;
-    uint public rewviewRatingId;
+    uint256 public reviewId;
+    uint256 public rewviewRatingId;
 
-    event ReviewSubmitted(uint indexed chainID, address indexed contractAddress, uint indexed tokenId, string metadataUri, uint id);
-    event RewviewRatingSubmitted(uint indexed reviewId, int score, address rater);
+    event ReviewSubmitted(
+        uint256 indexed chainID,
+        address indexed contractAddress,
+        uint256 indexed tokenId,
+        string metadataUri,
+        uint256 id
+    );
+    event RewviewRatingSubmitted(
+        uint256 indexed reviewId,
+        int256 score,
+        address rater
+    );
 
-    function createReview(uint _chainID, address _contractAddress, uint _tokenId, string memory _metadataUri) public {
-      reviewId++;
-      Review memory review = Review(_chainID, _contractAddress, _tokenId, _metadataUri, reviewId);
-      reviews[reviewId] = review;
-      emit ReviewSubmitted(_chainID, _contractAddress, _tokenId, _metadataUri, reviewId);
+    function createReview(
+        uint256 _chainID,
+        address _contractAddress,
+        uint256 _tokenId,
+        string memory _metadataUri
+    ) public {
+        reviewId++;
+        Review memory review = Review(
+            _chainID,
+            _contractAddress,
+            _tokenId,
+            _metadataUri,
+            reviewId
+        );
+        reviews[reviewId] = review;
+        emit ReviewSubmitted(
+            _chainID,
+            _contractAddress,
+            _tokenId,
+            _metadataUri,
+            reviewId
+        );
     }
 
-    function createReviewRating(uint _reviewId, int _score, address _rater) public {
-      rewviewRatingId++;
-      ReviewRating memory reviewRating = ReviewRating(_reviewId, _score, _rater);
-      reviewRatings[rewviewRatingId] = reviewRating;
-      emit RewviewRatingSubmitted(_reviewId, _score, _rater);
+    function createReviewRating(
+        uint256 _reviewId,
+        int256 _score,
+        address _rater
+    ) public {
+        rewviewRatingId++;
+        ReviewRating memory reviewRating = ReviewRating(
+            _reviewId,
+            _score,
+            _rater
+        );
+        reviewRatings[rewviewRatingId] = reviewRating;
+        emit RewviewRatingSubmitted(_reviewId, _score, _rater);
     }
-
 }
