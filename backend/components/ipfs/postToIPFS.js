@@ -20,8 +20,8 @@ function postToIPFS(dataJson, path = '') {
 
     const fileToAdd = {
         path: path,
-        content: dataJson,
-        mode: string,
+        content: JSON.stringify(data),
+        mode: "string",
     }
 
     return new Promise(() => client.add(fileToAdd, []));
