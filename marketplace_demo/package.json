@@ -11,6 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@headlessui/react": "^1.7.3",
+    "@material-tailwind/react": "^1.2.4",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.8",
     "@web3auth/web3auth": "^2.1.3",
