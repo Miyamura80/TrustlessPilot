@@ -1,0 +1,1 @@
+export const METAMASK_LINK = 'https://metamask.io'

@@ -11,6 +11,7 @@ contract Reviews {
         uint256 tokenId;
         string metadataUri;
         uint256 id;
+        address author;
     }
 
     struct ReviewRating {
@@ -23,16 +24,17 @@ contract Reviews {
     mapping(uint256 => ReviewRating) public reviewRatings;
 
     uint256 public reviewId;
-    uint256 public rewviewRatingId;
+    uint256 public reviewRatingId;
 
     event ReviewSubmitted(
         uint256 indexed chainID,
         address indexed contractAddress,
         uint256 indexed tokenId,
         string metadataUri,
-        uint256 id
+        uint256 id,
+        address author
     );
-    event RewviewRatingSubmitted(
+    event ReviewRatingSubmitted(
         uint256 indexed reviewId,
         int256 score,
         address rater
@@ -42,7 +44,8 @@ contract Reviews {
         uint256 _chainID,
         address _contractAddress,
         uint256 _tokenId,
-        string memory _metadataUri
+        string memory _metadataUri,
+        address _author
     ) public {
         reviewId++;
         Review memory review = Review(
@@ -50,7 +53,8 @@ contract Reviews {
             _contractAddress,
             _tokenId,
             _metadataUri,
-            reviewId
+            reviewId,
+            _author
         );
         reviews[reviewId] = review;
         emit ReviewSubmitted(
@@ -58,7 +62,8 @@ contract Reviews {
             _contractAddress,
             _tokenId,
             _metadataUri,
-            reviewId
+            reviewId,
+            _author
         );
     }
 
@@ -67,13 +72,13 @@ contract Reviews {
         int256 _score,
         address _rater
     ) public {
-        rewviewRatingId++;
+        reviewRatingId++;
         ReviewRating memory reviewRating = ReviewRating(
             _reviewId,
             _score,
             _rater
         );
-        reviewRatings[rewviewRatingId] = reviewRating;
-        emit RewviewRatingSubmitted(_reviewId, _score, _rater);
+        reviewRatings[reviewRatingId] = reviewRating;
+        emit ReviewRatingSubmitted(_reviewId, _score, _rater);
     }
 }

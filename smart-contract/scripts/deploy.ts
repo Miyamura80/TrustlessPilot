@@ -1,13 +1,12 @@
 import { ethers } from "hardhat";
 
 async function main() {
-
   const Reviews = await ethers.getContractFactory("Reviews");
-  const review = await Reviews.deploy();
+  const reviews = await Reviews.deploy();
 
-  await review.deployed();
+  await reviews.deployed();
 
-  console.log(`Review deployed to ${review.address}`);
+  console.log(`Deployed to ${reviews.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
