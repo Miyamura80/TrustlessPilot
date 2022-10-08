@@ -22,4 +22,4 @@ const readFromCache = (key) => {
   return cache.get(key);
 };
 
-module.exports = hashToCache;
+module.exports = { hashToCache, readFromCache };

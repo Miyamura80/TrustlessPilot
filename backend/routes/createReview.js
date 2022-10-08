@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const hashToCache = require("../utils/writebackCache");
+const { hashToCache } = require("../utils/writebackCache");
 const { createReview } = require("../components/contract/createReview");
 
 router.post("/", async function (req, res, next) {
