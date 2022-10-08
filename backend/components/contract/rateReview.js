@@ -1,4 +1,4 @@
-const { getContract } = require('./setup');
+const { getContract, calcGas } = require('./setup');
 const { signer } = require('../ethersUtils/setup');
 
 async function rateReview(reviewId, score, rater) {

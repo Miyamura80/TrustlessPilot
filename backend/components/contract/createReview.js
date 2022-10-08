@@ -1,4 +1,4 @@
-const { getContract } = require("./setup");
+const { getContract, calcGas } = require("./setup");
 const { getSigner } = require("../ethersUtils/setup");
 
 async function createReview(
