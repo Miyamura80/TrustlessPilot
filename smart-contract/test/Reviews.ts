@@ -14,23 +14,25 @@ describe("Reviews", function () {
     const contractAddress = "0x199d5ed7f45f4ee35960cf22eade2076e95b253f";
     const tokenId = "1";
     const metadataUri = "google.com"
+    const reviewAuthor = "0x8749313F626B100b822D573c71dFffDaca383032"
 
     const reviewId = 1;
     const score = 5;
     const rater = "0x199d5ed7f45f4ee35960cf22eade2076e95b253f";
 
     return { reviews, owner, addr1, chainID, contractAddress, tokenId, metadataUri,
-            reviewId, score, rater };
+            reviewId, score, rater, reviewAuthor };
   }
 
   describe("Test contract", function () {
 
     it("Should create a Review", async function () {
-      const { reviews, chainID, contractAddress, tokenId, metadataUri } = await loadFixture(deployReviews);
-      await reviews.createReview(chainID, contractAddress, tokenId, metadataUri);
+      const { reviews, chainID, contractAddress, tokenId, metadataUri, reviewAuthor } = await loadFixture(deployReviews);
+      await reviews.createReview(chainID, contractAddress, tokenId, metadataUri, reviewAuthor);
       const reviewId = await reviews.reviewId();
       const review = await reviews.reviews(reviewId);
       expect(review.chainID).to.equal(chainID);
+      expect(review.author).to.equal(reviewAuthor);
     });
 
     it("Should create a Review Rating", async function () {

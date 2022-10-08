@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< Updated upstream:marketplace_demo/package.json
     "next": "12.3.1",
+=======
+    "next": "^12.3.1",
+>>>>>>> Stashed changes:marketplace/package.json
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-icons": "^4.4.0"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.12",
