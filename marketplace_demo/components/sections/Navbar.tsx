@@ -3,7 +3,7 @@ import Link from "next/link";
 import * as React from "react";
 import Divider from "@mui/material/Divider";
 import { AiOutlineMenu } from "react-icons/ai";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DarkModeButton } from "../utils/DarkModeButton";
 import { motion } from "framer-motion";
 
@@ -18,6 +18,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Web3Auth } from "@web3auth/web3auth";
 
 interface NavbarButtonProps {
   text?: string;
@@ -32,6 +33,44 @@ interface NavbarSocialButtonProps {
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  //Initialize within your constructor
+  const web3auth = new Web3Auth({
+    clientId: "BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I", // Get your Client ID from Web3Auth Dashboard
+    chainConfig: {
+      chainNamespace: "eip155",
+      chainId: "0x1",
+    },
+  });
+
+
+  const [myName, setmyName] = useState(null);
+  const [myPfp, setmyPfp] = useState("");
+  const [isConnected, setIsConnected] = useState(false);
+
+
+  async function initializeWeb3Auth() {
+    await web3auth.initModal();
+  }
+
+  async function disconnectUserWallet() {
+    await web3auth.logout();
+    setIsConnected(false);
+    setmyName("");
+    setmyPfp(null);    
+  }
+
+  async function connectUserWallet() {
+    await web3auth.connect();
+    // connect();
+    const userInfo = await web3auth.getUserInfo();
+    setmyName(userInfo.name);
+    setmyPfp(userInfo.profileImage);
+    setIsConnected(true);
+  }
+
+  useEffect(() => {
+    initializeWeb3Auth();    
+  }, []);
 
   return (
     <div>
@@ -92,6 +131,35 @@ export function Navbar() {
 
           <div className="inline-flex items-center space-x-4">
             <DarkModeButton />
+
+            { !isConnected
+              ? (<button type="button" onClick={() => connectUserWallet()} className="py-1 px-3 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                  Connect to Wallet
+                </button>)
+              : (<div className="flex flex-row">
+                <div className="flex-shrink-0 group block pr-4">
+                  <div className="flex items-center">
+                    <Image
+                      src={myPfp}
+                      alt={myName}
+                      width={"40px"}
+                      height={"40px"}
+                    />
+                    <div className="ml-3">
+                      <h3 className="font-semibold text-gray-800 dark:text-black">{myName}</h3>
+                      <p className="text-sm font-medium text-gray-400">Connected</p>
+                    </div>
+                  </div>
+                </div>
+
+                  <button type="button" onClick={() => disconnectUserWallet()} className="py-1 px-3 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                    Disconnect
+                  </button>
+                </div>
+              )
+            }
+            
+
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? (
                 <>

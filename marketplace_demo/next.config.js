@@ -9,6 +9,7 @@ const nextConfig = {
       'cdn.shopify.com',
       'i.linio.com',
       'm.media-amazon.com',
+      'lh3.googleusercontent.com',
     ],
   }
 }
