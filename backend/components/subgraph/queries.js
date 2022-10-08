@@ -1,5 +1,5 @@
 const { client } = require('./setup');
-const { gql } = require('@apollo/client');
+const gql = require('graphql-tag');
 
 function queryReviews(chainId, contractAddress, tokenId) {
   function getQuery(chainId, contractAddress, tokenId) {
@@ -20,12 +20,14 @@ function queryReviews(chainId, contractAddress, tokenId) {
     }
     `
   }
+
   return new Promise((resolve, reject) => {
   client
     .query({
       query: gql(getQuery(chainId, contractAddress, tokenId)),
     })
     .then((reviews) => {
+      console.log(reviews['data']['reviewSubmittedEntities'])
       return(reviews['data']['reviewSubmittedEntities']);
     })
     .catch((err) => {
