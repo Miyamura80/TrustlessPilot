@@ -18,6 +18,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Web3Auth } from "@web3auth/web3auth";
+
 
 interface NavbarButtonProps {
   text?: string;
@@ -32,6 +34,14 @@ interface NavbarSocialButtonProps {
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  //Initialize within your constructor
+  const web3auth = new Web3Auth({
+    clientId: "", // Get your Client ID from Web3Auth Dashboard
+    chainConfig: {
+      chainNamespace: "eip155",
+      chainId: "0x1",
+    },
+  });
 
   return (
     <div>
@@ -92,6 +102,11 @@ export function Navbar() {
 
           <div className="inline-flex items-center space-x-4">
             <DarkModeButton />
+            <button type="button" 
+              className="py-1 px-3 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+              Connect to Wallet
+            </button>
+
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? (
                 <>
