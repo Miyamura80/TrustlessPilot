@@ -4,6 +4,7 @@ import Footer from '../components/layout/Footer'
 import { Header } from '../components/layout/Header'
 import Main from '../components/layout/Main'
 import styles from '../styles/Home.module.css'
+import ReviewContainer from '../components/review/ReviewContainer'
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Main />
 
       <Footer />
+      <ReviewContainer></ReviewContainer>
     </>
   )
 }
