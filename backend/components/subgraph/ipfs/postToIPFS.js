@@ -30,7 +30,7 @@ const postToIPFS = (dataJson, path = '') => {
         // probably need to save hash
     });
 
-
+    // previous implementation
 
     // const options = {
     //     host: 'ipfs.infura.io',
