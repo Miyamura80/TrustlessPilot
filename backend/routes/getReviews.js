@@ -8,8 +8,8 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.post('/', function(req, res, next) {
-  const { chainId, contractAddress, tokenId } = req.body['data'];
+router.get('/:chainId/:contractAddress/:tokenId', async function(req, res, next) {
+  const { chainId, contractAddress, tokenId } = req.params;
   const reviews = await queryReviewRatings(chainId, contractAddress, tokenId);
   res.status(200).json(reviews);
 });

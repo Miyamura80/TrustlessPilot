@@ -52,3 +52,5 @@ const postToIPFS = (dataJson, path = '') => {
     // });
     // req.end();
 }
+
+module.export.postToIPFS = postToIPFS;
