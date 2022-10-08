@@ -7,10 +7,10 @@ import MyCollectionPage from "./MyCollectionPage";
 
 const Home: NextPage = () => {
   return (
-    <Page>
+    <>
       <MarketplacePage />
       <ReviewContainer />
-    </Page>
+    </>
   );
 };
 
