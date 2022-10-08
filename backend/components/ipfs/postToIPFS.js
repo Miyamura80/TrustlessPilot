@@ -1,7 +1,7 @@
 const ipfsClient = require('ipfs-http-client');
 
-function postToIPFS(dataJson, path = '') {
-    const res = requests.post('https://ipfs.infura.io:5001/api/v0/add', files=files)
+function postToIPFS(data, path = '') {
+    // const res = requests.post('https://ipfs.infura.io:5001/api/v0/add', files=files)
     const projectId = process.env.INFURA_PROJECT_ID
     const projectSecret = process.env.INFURA_SECRET_API_KEY
 
@@ -9,9 +9,8 @@ function postToIPFS(dataJson, path = '') {
         'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
 
     const client = ipfsClient.create({
-        host: 'ipfs.infura.io',
-        port: 5001,
-        protocol: 'https',
+        url: "https://ipfs.infura.io:5001/api/v0",
+        method: 'POST',
         headers: {
             authorization: auth,
         },
@@ -19,12 +18,12 @@ function postToIPFS(dataJson, path = '') {
 
     const fileToAdd = {
         path: path,
-        content: dataJson,
-        mode: string,
+        content: JSON.stringify(data),
+        mode: "string",
     }
 
-    client.add(fileToAdd, []).then((res) => {
-        console.log(res);
+    return client.add(fileToAdd, []).then((res) => {
+        return res;
         // res -> name, hash, size
         // probably need to save hash
     });

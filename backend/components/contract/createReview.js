@@ -16,3 +16,5 @@ async function createReview(chainID, contractAddress, tokenId, metadataUri, revi
     return 'error';
   }
 }
+
+module.exports.createReview = createReview;

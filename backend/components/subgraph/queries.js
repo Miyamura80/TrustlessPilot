@@ -21,20 +21,17 @@ function queryReviews(chainId, contractAddress, tokenId) {
     `
   }
 
-  return new Promise((resolve, reject) => {
-  client
+  return client
     .query({
       query: gql(getQuery(chainId, contractAddress, tokenId)),
     })
     .then((reviews) => {
-      console.log(reviews['data']['reviewSubmittedEntities'])
       return(reviews['data']['reviewSubmittedEntities']);
     })
     .catch((err) => {
       console.log('Error fetching data: ', err)
       return;
     })
-  })
 }
 
 function queryReviewRatings(reviewId) {
@@ -53,8 +50,7 @@ function queryReviewRatings(reviewId) {
       }
     `
   }
-  return new Promise((resolve, reject) => {
-  client
+  return client
     .query({
       query: gql(getQuery(reviewId)),
     })
@@ -65,7 +61,6 @@ function queryReviewRatings(reviewId) {
       console.log('Error fetching data: ', err)
       return;
     })
-  })
 }
 
 module.exports.queryReviews = queryReviews;

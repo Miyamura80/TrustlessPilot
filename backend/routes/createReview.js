@@ -10,6 +10,7 @@ router.post('/', async function(req, res, next) {
     score: score,
     content: content
   });
+  console.log(postRes)
   const metadataUri = ""; // get from postRes
   await createReview(chainId, contractAddress, tokenId, metadataUri, author)
   res.status(200).json({ message: "Review created!"});
