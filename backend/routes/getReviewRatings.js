@@ -8,7 +8,7 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.get('/:reviewId', function(req, res, next) {
+router.get('/:reviewId', async function(req, res, next) {
   const { reviewId } = req.params;
   const reviewRatings = await queryReviewRatings(reviewId);
   res.status(200).json(reviewRatings);

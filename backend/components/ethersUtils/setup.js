@@ -6,7 +6,7 @@ function getProvider(network) {
   return new ethers.providers.JsonRpcProvider(ankrUrl);
 }
 
-function getProvider(network) {
+function getSigner(network) {
   const provider = getProvider(CONTRACT_NETWORK);
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
   return signer;
