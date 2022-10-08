@@ -1,16 +1,16 @@
-const ipfs = require("ipfs-http-client");
+//import * as IPFS from 'ipfs-core';
+const IPFS = require('ipfs-core');
 
-const client = ipfs.create();
+const getIPFSData = async(cid) => {
+const node = await IPFS.create();
 
-async function getIPFSData(cid) {
-  const result = await client.get(cid)
-  let contents = ""
-
-  for await(const item of result){
-    contents += new TextDecoder().decode(item)
-  }
-
-  contents = contents.replace(/\0/g, "")
-  return { message: contents };
-  });
+//retrieving a file from IPFS can be done by using a cat call
+const chunks = [];
+for await (const chunk of node.cat(cid)) {
+  chunks.push(chunk);
 }
+
+console.log("Retrieved file contents:", chunks.toString());
+}
+
+module.exports = getIPFSData;
