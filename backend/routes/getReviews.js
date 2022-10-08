@@ -20,11 +20,11 @@ router.get(
   async function (req, res, next) {
     const { chainId, contractAddress, tokenId } = req.params;
     const reviews = await queryReviews(chainId, contractAddress, tokenId);
-    console.log(reviews);
 
-    const updatedreviews = updateReviews(reviews);
+    const updatedReviews = await updateReviews(reviews);
+    console.log('reviews', updatedReviews);
 
-    res.status(200).json(updatedreviews);
+    res.status(200).json(updatedReviews);
   }
 );
 

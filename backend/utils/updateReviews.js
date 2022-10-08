@@ -4,14 +4,15 @@ const { readFromCache } = require("./writeBackCache");
  * @param {*} arrOfReviews array of reviewsObjects returned from querying Reviews
  * @dev avgScore and metadata field added to each reviewObject
  */
-const updateReviews = (arrOfReviews) => {
-  const updatedReviews = arrOfReviews.map(addFields);
-  return updateReviews;
+async function updateReviews(arrOfReviews) {
+  const updatedReviews = await Promise.all(arrOfReviews.map(addFields));
+  console.log('here', updatedReviews)
+  return updatedReviews;
 };
 
-function addFields(review) {
+async function addFields(review) {
   const { metadataUri, reviewId } = review;
-  const ratingsArr = queryReviewRatings(reviewId);
+  const ratingsArr = await queryReviewRatings(reviewId);
   const ratingSum = ratingsArr.reduce(
     (sum, ratingObj) => (sum += ratingObj.score),
     0
