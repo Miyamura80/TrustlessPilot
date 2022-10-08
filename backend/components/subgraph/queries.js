@@ -1,47 +1,66 @@
 const { client } = require('./setup');
-const { gql } = require('@apollo/client');
+const gql = require('graphql-tag');
 
 function queryReviews(chainId, contractAddress, tokenId) {
-  return `
+  function getQuery(chainId, contractAddress, tokenId) {
+    return `
     {
-      signetChangedEntities(orderBy: timestamp, orderDirection: asc, where: {owner: "${address}"}) {
+      reviewSubmittedEntities(where: {chainID: ${chainId}, contractAddress: "${contractAddress}", tokenId: ${tokenId}}) {
         id
         blockNumber
         timestamp
-        previous
-        signet
-        owner
+        count
+        chainID
+        contractAddress
+        tokenId
+        metadataUri
+        author
+        reviewId
       }
     }
-  `
-}
+    `
+  }
 
-function queryReviewRatings(reviewId) {
-  const getQuery = `
-    {
-      signetChangedEntities(orderBy: timestamp, orderDirection: asc, where: {owner: "${address}"}) {
-        id
-        blockNumber
-        timestamp
-        previous
-        signet
-        owner
-      }
-    }
-  `
-  return new Promise((resolve, reject) => {
-  client
+  return client
     .query({
-      query: gql(queryReviewRatings(chainId, contractAddress, tokenId)),
+      query: gql(getQuery(chainId, contractAddress, tokenId)),
     })
-    .then((data) => {
-      return(data);
+    .then((reviews) => {
+      return(reviews['data']['reviewSubmittedEntities']);
     })
     .catch((err) => {
       console.log('Error fetching data: ', err)
       return;
     })
-  })
+}
+
+function queryReviewRatings(reviewId) {
+  function getQuery(reviewId) {
+    return `
+      {
+        rewviewRatingSubmittedEntities(where: {reviewId: ${reviewId}}) {
+          id
+          blockNumber
+          timestamp
+          count
+          reviewId
+          score
+          rater
+        }
+      }
+    `
+  }
+  return client
+    .query({
+      query: gql(getQuery(reviewId)),
+    })
+    .then((reviewRatings) => {
+      return(reviewRatings['data']['rewviewRatingSubmittedEntities']);
+    })
+    .catch((err) => {
+      console.log('Error fetching data: ', err)
+      return;
+    })
 }
 
 module.exports.queryReviews = queryReviews;
