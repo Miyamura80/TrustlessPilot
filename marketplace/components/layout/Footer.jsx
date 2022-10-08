@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="flex flex-row justify-between p-4 items-center border border-t">
+    <footer className="flex flex-row justify-between p-4 items-center border border-t border-gray-200 sm:p-6 mx-8 lg:mx-20 mb-2">
     <h2 className="text-2xl">
       W3Rate
     </h2>
@@ -16,7 +16,7 @@ export function Footer() {
       </h5>
     </div>
     <div>
-      <button>Connect Wallet</button>
+      <button>Twitter</button>
     </div>
     </footer>
   )

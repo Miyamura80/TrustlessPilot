@@ -1,6 +1,8 @@
+import { ConnectButton, ThemeButton } from './Header';
+
 export function Header() {
   return (
-    <nav className="flex flex-row justify-between p-4 items-center">
+    <nav className="flex flex-row justify-between p-4 items-center sm:p-6 mx-8 lg:mx-20 mt-2">
       <h2 className="text-2xl">
         W3Rate
       </h2>
@@ -16,7 +18,8 @@ export function Header() {
         </h5>
       </div>
       <div>
-        <button>Connect Wallet</button>
+        <ThemeButton />
+        <ConnectButton />
       </div>
     </nav>
   )
