@@ -10,7 +10,8 @@ router.use(function(req, res, next) {
 
 router.get('/:chainId/:contractAddress/:tokenId', async function(req, res, next) {
   const { chainId, contractAddress, tokenId } = req.params;
-  const reviews = await queryReviewRatings(chainId, contractAddress, tokenId);
+  const reviews = await queryReviews(chainId, contractAddress, tokenId);
+  console.log(reviews)
   res.status(200).json(reviews);
 });
 

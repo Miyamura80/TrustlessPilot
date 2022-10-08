@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { postToIPFS } = require('../components/ipfs/postMetadata')
+const { postToIPFS } = require('../components/ipfs/postToIPFS')
 const { createReview } = require('../components/contract/createReview')
 
 router.post('/', async function(req, res, next) {
