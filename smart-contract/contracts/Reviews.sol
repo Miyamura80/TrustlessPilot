@@ -28,7 +28,7 @@ contract Reviews {
     uint public reviewRatingId;
 
     event ReviewSubmitted(uint indexed chainID, address indexed contractAddress, uint indexed tokenId, string metadataUri, uint id, address author);
-    event RewviewRatingSubmitted(uint indexed reviewId, int score, address rater);
+    event ReviewRatingSubmitted(uint indexed reviewId, int score, address rater);
 
     function createReview(uint _chainID, address _contractAddress, uint _tokenId, string memory _metadataUri, address _author) public {
       reviewId++;
@@ -41,7 +41,7 @@ contract Reviews {
       reviewRatingId++;
       ReviewRating memory reviewRating = ReviewRating(_reviewId, _score, _rater);
       reviewRatings[reviewRatingId] = reviewRating;
-      emit RewviewRatingSubmitted(_reviewId, _score, _rater);
+      emit ReviewRatingSubmitted(_reviewId, _score, _rater);
     }
 
 }
