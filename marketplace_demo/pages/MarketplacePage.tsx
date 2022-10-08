@@ -5,6 +5,8 @@ import MinterPage from "./MinterPage";
 
 export default function MarketplacePage() {
   return (
+    <Page>
       <Marketplace />
+    </Page>
   );
 }
