@@ -1,14 +1,14 @@
-import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
+import Stars from "./Stars"
 
-
-const Stars = 3
-
-export default function Review() {
+export default function Review(props) {
+    
     return (
-        <>
-            {/* Vertical div */}
-            <div className="flex flex-col">
-                <div className="flex-1">
+        <div className="bg-white p-4 rounded-xl">
+            <div className="flex items-center mb-4">
+                <div className='flex-shrink'>
+                    <img src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-4-470x470.png" height="50" width="50" className="rounded-full mr-4" />
+                </div>
+                <div className="flex-auto">
                     <h2>
                         Reviewer Name
                     </h2>
@@ -16,23 +16,18 @@ export default function Review() {
                         Reputation 
                     </h2>
                 </div>
-                <div className="flex-1">
-                    <AiFillStar></AiFillStar>
-                    <AiFillStar></AiFillStar>
-                    <AiFillStar></AiFillStar>
-                    <AiOutlineStar></AiOutlineStar>
-                    <AiOutlineStar></AiOutlineStar>
-                </div>
-                <div className="flex-1">
-                    <h1>
-                        Review Title
-                    </h1>
-                    <p>
-                        Lorem ipseum dolor. Lorem ipseum dolor. Lorem ipseum dolor. Lorem ipseum dolor. 
-                    </p>
-                </div>
             </div>
-
-        </>
+            <div>
+                <Stars />
+            </div>
+            <div>
+                <h1 className="text-lg">
+                    Review Title
+                </h1>
+                <p className="text-sm">
+                    Lorem ipseum dolor. Lorem ipseum dolor. Lorem ipseum dolor. Lorem ipseum dolor. 
+                </p>
+            </div>
+        </div>
     )
 }
