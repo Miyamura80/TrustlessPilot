@@ -1,4 +1,4 @@
-import { ConnectButton, ThemeButton } from './Header';
+import { ConnectButton, ThemeButton } from './HeaderComponents';
 
 export function Header() {
   return (
@@ -18,8 +18,8 @@ export function Header() {
         </h5>
       </div>
       <div>
-        <ThemeButton />
         <ConnectButton />
+        <ThemeButton />
       </div>
     </nav>
   )
