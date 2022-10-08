@@ -12,6 +12,7 @@ contract Reviews {
       uint tokenId;
       string metadataUri;
       uint id;
+      address author;
     }
 
     struct ReviewRating {
@@ -24,22 +25,22 @@ contract Reviews {
     mapping(uint => ReviewRating) public reviewRatings;
 
     uint public reviewId;
-    uint public rewviewRatingId;
+    uint public reviewRatingId;
 
-    event ReviewSubmitted(uint indexed chainID, address indexed contractAddress, uint indexed tokenId, string metadataUri, uint id);
+    event ReviewSubmitted(uint indexed chainID, address indexed contractAddress, uint indexed tokenId, string metadataUri, uint id, address author);
     event RewviewRatingSubmitted(uint indexed reviewId, int score, address rater);
 
-    function createReview(uint _chainID, address _contractAddress, uint _tokenId, string memory _metadataUri) public {
+    function createReview(uint _chainID, address _contractAddress, uint _tokenId, string memory _metadataUri, address _author) public {
       reviewId++;
-      Review memory review = Review(_chainID, _contractAddress, _tokenId, _metadataUri, reviewId);
+      Review memory review = Review(_chainID, _contractAddress, _tokenId, _metadataUri, reviewId, _author);
       reviews[reviewId] = review;
-      emit ReviewSubmitted(_chainID, _contractAddress, _tokenId, _metadataUri, reviewId);
+      emit ReviewSubmitted(_chainID, _contractAddress, _tokenId, _metadataUri, reviewId, _author);
     }
 
     function createReviewRating(uint _reviewId, int _score, address _rater) public {
-      rewviewRatingId++;
+      reviewRatingId++;
       ReviewRating memory reviewRating = ReviewRating(_reviewId, _score, _rater);
-      reviewRatings[rewviewRatingId] = reviewRating;
+      reviewRatings[reviewRatingId] = reviewRating;
       emit RewviewRatingSubmitted(_reviewId, _score, _rater);
     }
 
