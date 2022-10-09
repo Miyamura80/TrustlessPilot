@@ -1,5 +1,6 @@
 
 const { queryReviewsByAuthor } = require("../components/subgraph/queries");
+const updateReviews = require("../utils/updateReviews");
 const { getReviewScore } = require("../utils/reviewUtils");
 
 class User {
@@ -23,8 +24,9 @@ class User {
         console.log('in class ' + wallet)
         if (!wallet) return [];
         const userReviews = await queryReviewsByAuthor(wallet);
-        console.log(userReviews);
-        return userReviews;
+        const updatedReviews = await updateReviews(userReviews);
+        console.log(updatedReviews);
+        return updatedReviews;
     }
 
     async getReputation() {

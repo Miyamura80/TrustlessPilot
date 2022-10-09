@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/router'
 import { Page } from '../../components/Page';
-import { useProductContext } from '../_app';
+import { useAuthContext, useProductContext } from '../_app';
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
@@ -13,10 +13,8 @@ const ProductPage = () => {
   const queryResult = router.query;
 
   const [productContext, setProductContext] = useProductContext();
+  const [web3auth, setWeb3auth] = useAuthContext();
 
-  // console.log("hello");
-  // console.log(queryResult.params)
-  // console.log(router.query)
   const {price,tokenId,seller,owner,image,name,description} = productContext;
 
   return (
