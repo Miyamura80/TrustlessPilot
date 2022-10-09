@@ -90,22 +90,7 @@ export default function ProductPage() {
                   width={500}
                   height={500}
                 />
-                <div className='pl-4 pt-4'><WorldcoinWidget signal={"43587"} setIsVerified={setIsVerified}/>
-                <div className='pt-4'>
-                { isVerified 
-                ? (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-500">
-                    <span className="w-1.5 h-1.5 inline-block bg-lime-400 rounded-full"></span>
-                    Verified
-                  </span>
-                  ) 
-                : (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-500">
-                    <span className="w-1.5 h-1.5 inline-block bg-red-400 rounded-full"></span>
-                    Not Verified
-                  </span>
-                  )
-                }
-                </div>
-                </div>
+
               </div>
               <div className="p-8 mx-12 max-w-[30vw]">
                 <p
