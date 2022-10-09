@@ -18,7 +18,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Web3Auth } from "@web3auth/web3auth";
+import { useAuthContext } from "../../pages/_app";
 
 interface NavbarButtonProps {
   text?: string;
@@ -33,24 +33,13 @@ interface NavbarSocialButtonProps {
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  //Initialize within your constructor
-  const web3auth = new Web3Auth({
-    clientId: `BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I`, // Get your Client ID from Web3Auth Dashboard
-    chainConfig: {
-      chainNamespace: "eip155",
-      chainId: "0x1",
-    },
-  });
-
-
+  const [web3auth, setWeb3auth] = useAuthContext();
+  
   const [myName, setmyName] = useState(null);
   const [myPfp, setmyPfp] = useState("");
   const [isConnected, setIsConnected] = useState(false);
 
 
-  async function initializeWeb3Auth() {
-    await web3auth.initModal();
-  }
 
   async function disconnectUserWallet() {
     await web3auth.logout();
@@ -61,16 +50,11 @@ export function Navbar() {
 
   async function connectUserWallet() {
     await web3auth.connect();
-    // connect();
     const userInfo = await web3auth.getUserInfo();
     setmyName(userInfo.name);
     setmyPfp(userInfo.profileImage);
     setIsConnected(true);
   }
-
-  useEffect(() => {
-    initializeWeb3Auth();
-  }, []);
 
   return (
     <div>
