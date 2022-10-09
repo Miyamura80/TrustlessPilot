@@ -55,7 +55,11 @@ export function Navbar() {
   async function connectUserWallet() {
     await web3auth.connect();
     const userInfo = await web3auth.getUserInfo();
-    console.log(userInfo)
+
+    const authenticatedUser = await web3auth.authenticateUser();
+    // console.log("connected with");
+    // console.log(userInfo);
+    // console.log(authenticatedUser);
     setmyName(userInfo.name);
     setmyPfp(userInfo.profileImage);
     setIsConnected(true);
