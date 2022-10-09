@@ -7,12 +7,12 @@ const { queryProfile } = require("../components/lens/queries");
 const { userUtils } = require("../components/userUtils")
 
 router.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
 });
 
 router.get(
@@ -27,3 +27,5 @@ router.get(
       res.status(200).json(userProfile);
     }
   );
+
+module.exports = router;
