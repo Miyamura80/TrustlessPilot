@@ -1,5 +1,4 @@
 import { Page } from '../../components/Page';
-import { useProductContext } from '../_app';
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from 'next/link';
