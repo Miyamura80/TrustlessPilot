@@ -19,7 +19,9 @@ class User {
     }
 
     async queryUserReviews() {
-        const wallet = require(this.profile.ownedBy)
+        const wallet = this.profile.address
+        console.log('in class ' + wallet)
+        if (!wallet) return [];
         const userReviews = await queryReviewsByAuthor(wallet);
         console.log(userReviews);
         return userReviews;
