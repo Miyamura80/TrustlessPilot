@@ -124,6 +124,16 @@ export default function UserPage() {
             }
           </div>
         </div>
+        <Tabs.Group aria-label="Default tabs" style="default">
+          <Tabs.Item
+            active={true}
+            title="Reviews Written"
+            icon={BsPencilSquare}>
+              <ReviewContainer data={reviews}/>
+              {displayReviews}
+          </Tabs.Item>
+          <Tabs.Item title="Reviews Rated" icon={FaVoteYea}></Tabs.Item>
+        </Tabs.Group>
       </div>
     </Page>
   );
