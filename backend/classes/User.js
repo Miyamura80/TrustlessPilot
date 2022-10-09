@@ -10,12 +10,12 @@ class User {
 
     // calculate reputation, personal opinion, friendship
 
-    #userReviews = null;
-    #reputation = null;
+    userReviews = null;
+    reputation = null;
 
     async getUserReviews() {
-        if (!this.#userReviews) this.#userReviews = await this.queryUserReviews()
-        return this.#userReviews
+        if (!this.userReviews) this.userReviews = await this.queryUserReviews()
+        return this.userReviews
     }
 
     async queryUserReviews() {
@@ -28,8 +28,8 @@ class User {
     }
 
     async getReputation() {
-        if (!this.#reputation) this.#reputation = await this.calculateReputation()
-        return this.#reputation
+        if (!this.reputation) this.reputation = await this.calculateReputation()
+        return this.reputation
     }
 
     // for each review calculate its score, then sum over all scores

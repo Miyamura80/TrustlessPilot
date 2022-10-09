@@ -20,13 +20,13 @@ router.get(
     async function (req, res, next) {
       const { walletAddress } = req.params;
       console.log(walletAddress)
-      const userProfile = await queryProfile(walletAddress);
+      var userProfile = await queryProfile(walletAddress);
       console.log(userProfile);
 
       const currentUser = new User(userProfile)
       // calculate reputation, personal opinion, friendship
-      currentUser.getReputation()
-      currentUser.getUserReviews()
+      await currentUser.getReputation()
+      await currentUser.getUserReviews()
       res.status(200).json(userProfile);
     }
   );
