@@ -4,24 +4,27 @@ import Voting from "./Voting";
 import { AiFillStar } from "react-icons/ai";
 import WriteReview from "./WriteReview";
 
-export default function ReviewContainer(data) {
-  console.log(data);
-  const reviews = data.data;
-  console.log(reviews);
+export default function ReviewContainer(props) {
+  const {reviews, showReviewDialog, showRatingBreakdown} = props
   return (
     <div className="w-1/2 p-4 border-4 rounded-xl">
-        <div className="mb-8">
-            <RatingBreakdown></RatingBreakdown>
-        </div>
-      <hr></hr>
+      { showRatingBreakdown === true
+        ? <><RatingBreakdown /><hr></hr></>
+        : <></>
+      }
       {reviews ? reviews.map((review, index) => {
         return (
-          <SingleReview data={review} key={index} />
+          <SingleReview review={review} key={index} />
       )}) : <div>No reviews yet!</div> }
-      <hr></hr>
-      <div className="mt-8">
-        <WriteReview />
-      </div>
+      { showReviewDialog === true
+        ? <>
+            <hr></hr>
+            <div className="mt-4">
+              <WriteReview />
+            </div>
+          </>
+        : <></>
+      }
     </div>
   );
 }

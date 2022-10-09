@@ -53,18 +53,6 @@ export default function UserPage() {
   const reviews = data.userReviews;
   const profileData = data.profile.profiles[0];
 
-  const displayReviews = reviews.map((review, index): any => {
-    return (<div key={index} className="flex rounded-3xl shadow-sm justify-start p-6 m-4 bg-zinc-100 dark:bg-zinc-700 w-2/3 mx-auto">
-      <div className="flex items-center mr-8">
-        <Voting />
-      </div>
-      <div className="flex-col justify-center">
-        <h1 className="text-3xl mb-4">NFT image</h1>
-        <ReviewText data={review} />
-      </div>
-    </div>);
-  });
-
   return (
     <Page>
       <div className="flex flex-row mt-6">
@@ -120,7 +108,7 @@ export default function UserPage() {
           </div>
           <div className="flex flex-col justify-center my-4">
             { (activeTab == 'reviews' )
-            ? <ReviewContainer data={reviews} />
+            ? <ReviewContainer reviews={reviews} showReviewDialog={false} showRatingBreakdown={false} />
             : <></>
             }
 

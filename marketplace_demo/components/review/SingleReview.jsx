@@ -2,8 +2,8 @@ import Voting from "./Voting";
 import Link from 'next/link';
 import ReviewText from './ReviewText'
 
-export default function SingleReview(review) {
-    console.log('review ', review)
+export default function SingleReview(props) {
+    const { review } = props
     return (
     <div className="flex flex-row m-4 mb-6 dark:text-gray-300">
         <div className="flex-shrink mr-4 mt-4">
@@ -26,7 +26,7 @@ export default function SingleReview(review) {
                         </h2>
                     </div>
                 </div>
-                <ReviewText data={review}/>
+                <ReviewText review={review}/>
             </div>
         </div>
     </div>

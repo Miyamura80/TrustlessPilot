@@ -1,7 +1,7 @@
 import Stars from "./Stars";
 
-export default function ReviewText({data}) {
-  const review = data.data
+export default function ReviewText(props) {
+  const { review }= props
   console.log('in text', review)
   const stars = {stars: review?.rating}
   return (
