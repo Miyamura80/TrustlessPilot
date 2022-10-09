@@ -21,12 +21,13 @@ export default function UserPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
- 
+
   useEffect(() => {
    fetch(`http://localhost:8000/user/${walletAddress}`)
-    .then((response) => console.log(response.json));
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
   }, []);
- 
+
 
 
 
