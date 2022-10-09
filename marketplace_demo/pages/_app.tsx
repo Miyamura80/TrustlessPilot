@@ -6,7 +6,8 @@ import { Web3AuthConnector } from "@web3auth/web3auth-wagmi-connector";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { publicProvider } from "wagmi/providers/public";
-
+import { createContext, useContext, useState } from 'react'
+import React from 'react';
 
 const { chains, provider } = configureChains([chain.mainnet, chain.polygon], [publicProvider()]);
 // console.log("Amalia provider")
@@ -29,9 +30,12 @@ const wagmiClient = createClient({
   provider,
 });
 
+const ProductContext = React.createContext([]);
 
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const [context, setContext] = useState({price:0,tokenId:0,seller:"",owner:"",image:"",name:"",description:""});
+	
   return (
     <WagmiConfig client={wagmiClient}>
       <motion.div
@@ -48,11 +52,17 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         }}
       >
         <ThemeProvider attribute="class">
-          <Component {...pageProps} />
+          <ProductContext.Provider value={[context, setContext]}>
+            <Component {...pageProps} />
+          </ProductContext.Provider>        
         </ThemeProvider>
       </motion.div>
     </WagmiConfig>
   );
+}
+
+export function useProductContext() {
+  return useContext(ProductContext);
 }
 
 export default MyApp;

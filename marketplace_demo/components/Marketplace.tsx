@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRouter } from 'next/router'
+import { useProductContext } from "../pages/_app";
 
 export default function Marketplace() {
   const [nfts, setNfts] = useState<any[]>([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
+  const [context, setContext] = useProductContext();
+  const router = useRouter()
 
   useEffect(() => {
     loadNFTs();
@@ -82,43 +86,59 @@ export default function Marketplace() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
             {nfts.map((nft, i) => (
               <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <Image
-                  className="rounded"
-                  src={nft.image}
-                  alt="NFT file"
-                  width={350}
-                  height={257}
-                  quality={100}
-                />
-                <div className="p-4">
-                  <p
-                    style={{ height: "64px" }}
-                    className="text-2xl font-semibold"
-                  >
-                    {nft.name}
-                  </p>
-                  <div style={{ height: "70px", overflow: "hidden" }}>
-                    <p className="text-gray-400">{nft.description}</p>
-                  </div>
-                </div>
-                <div className="p-4 bg-black">
-                  <div className="text-2xl font-bold text-white">
-                    {nft.price}{" "}
+                <button onClick={() => {
+                  setContext({
+                    price: nft.price,
+                    tokenId: nft.tokenId,
+                    seller: nft.seller,
+                    owner: nft.owner,
+                    image: nft.image,
+                    name: nft.name,
+                    description: nft.description,
+                  });
+                  router.push(`/product/${nft.tokenId}`)
+
+                }}>
+                  <div>
                     <Image
-                      src="/Polygon-Matic-Logo.png"
-                      alt="Polygon Matic Logo"
-                      width={25}
-                      height={25}
+                      className="rounded"
+                      src={nft.image}
+                      alt="NFT file"
+                      width={350}
+                      height={257}
+                      quality={100}
                     />
-                    MATIC
+                    <div className="p-4">
+                      <p
+                        style={{ height: "64px" }}
+                        className="text-2xl font-semibold"
+                      >
+                        {nft.name}
+                      </p>
+                      <div style={{ height: "70px", overflow: "hidden" }}>
+                        <p className="text-gray-400">{nft.description}</p>
+                      </div>
+                    </div>
+                    <div className="p-4 bg-black">
+                      <div className="text-2xl font-bold text-white">
+                        {nft.price}{" "}
+                        <Image
+                          src="/Polygon-Matic-Logo.png"
+                          alt="Polygon Matic Logo"
+                          width={25}
+                          height={25}
+                        />
+                        MATIC
+                      </div>
+                      <button
+                        className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
+                        onClick={() => console.log("buy nft")}
+                      >
+                        Buy
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
-                    onClick={() => console.log("buy nft")}
-                  >
-                    Buy
-                  </button>
-                </div>
+                </button>
               </div>
             ))}
           </div>
