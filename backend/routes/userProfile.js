@@ -27,8 +27,8 @@ router.get(
 
       const currentUser = new User(userProfile)
       // calculate reputation, personal opinion, friendship
-      currentUser.getReputation()
-      currentUser.getUserReviews()
+      await currentUser.getReputation()
+      await currentUser.getUserReviews()
       res.status(200).json(userProfile);
     }
   );
