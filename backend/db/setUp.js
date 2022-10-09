@@ -1,5 +1,5 @@
 const loki = require("lokijs");
-const DB = new loki("./Database", {
+const DB = new loki("./db/Database", {
   autosave: true,
   autosaveInterval: 4000,
 });
