@@ -7,6 +7,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import { Tooltip, Tabs } from "flowbite-react";
 import Voting from "../components/review/Voting";
 import { useState, useEffect } from "react";
+import ReviewContainer from "../components/review/ReviewContainer";
 
 export default function UserPage() {
   const walletAddress = "0x0000000ab702853d1163d38d047fa351fa78e9d3";
@@ -90,7 +91,7 @@ export default function UserPage() {
             active={true}
             title="Reviews Written"
             icon={BsPencilSquare}>
-              {displayReviews}
+              <ReviewContainer data={reviews}/>
           </Tabs.Item>
           <Tabs.Item title="Reviews Rated" icon={FaVoteYea}></Tabs.Item>
         </Tabs.Group>

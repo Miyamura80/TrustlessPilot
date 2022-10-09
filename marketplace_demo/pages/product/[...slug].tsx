@@ -5,25 +5,41 @@ import Image from "next/image";
 import Link from 'next/link';
 import ReviewContainer from '../../components/review/ReviewContainer';
 import { useState, useEffect } from "react";
+import { formatAddress } from '../../utils/formatting';
+const { myReviews } = require("../../../backend/utils/reviewUtils");
+
 
 
 export default function ProductPage() {
   const [nft, setNft] = useState({
-    contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623",
-    chainId: 2, price:80, tokenId:1, seller:"Eito", owner:"Konrad",
-    image: "https://pyxis.nymag.com/v1/imgs/4d9/076/3a3370deb182b80681bc8fbb59c1dbdfc8.rsquare.w600.jpg",
-    name: "Keychron K2 (K2-C1H) Aluminum Gateron",
-    description: "K2 is a super tactile wireless or wired keyboard giving you all the keys and function you need while keeping it compact, with the largest battery seen in a mechanical keyboard"
+    contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2,
+    price:90, tokenId:2, seller:{ address: "0x526E0cFF86ab0f0b92ABa83e53d5B05bA2Bea956", ens: null }, owner:{ address: "0xF7C012789aac54B5E33EA5b88064ca1F1172De05", ens: "konradkopp.eth"},
+    image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338",
+    name: "Satechi Slim X2 Bluetooth Keyboard",
+    description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ...",
   })
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [data, setData] = useState(null);
+
   useEffect(() => {
-   fetch(`http://localhost:8000/get-reviews/2/0x727fEa0982F8f95902bfE40C53484d0DD1BbD623/3`)
+   fetch(`http://localhost:8000/get-reviews/${nft.chainId}/${nft.contractAddr}/${nft.tokenId}`)
     .then( (response) => response.json())
     .then( (data) => {
         console.log('product data request', data)
+        setData(data);
     })
+    .then(() => setIsLoading(false))
     .catch((error) => console.log(error));
-  }, []);
+  }, [nft]);
+
+  if (isLoading) return <div>loading</div>;
+
+
+  console.log("data ", data);
+  // const reviews = data.userReviews;    // legit version
+  const reviews = myReviews
 
   return (
     <Page>
@@ -70,10 +86,10 @@ export default function ProductPage() {
 
                 <div className='my-4'>
                   <p className='font-semibold text-black dark:text-white'>Seller:</p>
-                  <Link href={'/user?ad=' + nft.seller} passHref>
+                  <Link href={'/user?ad=' + nft.seller.address} passHref>
                     <div className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-gray-600 dark:text-gray-300'>
                       <span className='bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out'>
-                        {nft.seller}
+                        {nft.seller.ens ? nft.seller.ens : formatAddress(nft.seller.address)}
                       </span>
                     </div>
                   </Link>
@@ -81,21 +97,17 @@ export default function ProductPage() {
 
                 <div className='my-4'>
                   <p className='font-semibold text-black dark:text-white'>Owner:</p>
-                  <Link href={'/user?ad=' + nft.owner} passHref>
+                  <Link href={'/user?ad=' + nft.owner.address} passHref>
                     <div className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-gray-600 dark:text-gray-300'>
                       <span className='bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out'>
-                        {nft.owner}
+                        {nft.owner.ens ? nft.owner.ens : formatAddress(nft.owner.address)}
                       </span>
                     </div>
                   </Link>
                 </div>
 
-                <div className='my-4'>
-                  <p className='font-semibold text-black dark:text-white'>Token ID:</p>
-                  <p className='text-gray-600 dark:text-gray-300'>{nft.tokenId}</p>
-                </div>
-          </div>
-          {/*<ReviewContainer />*/}
+              </div>
+          <ReviewContainer data={reviews} />
         </div>
       </motion.div>
     </Page>
