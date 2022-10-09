@@ -6,13 +6,30 @@ import { FaVoteYea } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import { Tooltip, Tabs } from "flowbite-react";
 import Voting from "../components/review/Voting";
+import { useState, useEffect } from "react"
 
 export default function UserPage() {
-  const walletAddress = "0xDfDeD3Eh4DFD409A489F5bH590f6fc9f314587E0";
+  const walletAddress = "0x0000000ab702853d1163d38d047fa351fa78e9d3";
   const verifiedHuman = true;
   const followers = 124;
   const following = 138;
   const globalScore = 2000;
+
+
+
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+ 
+  useEffect(() => {
+   fetch(`localhost:8000/user/${walletAddress}`)
+    .then((response) => "TEST" + console.log(response));
+  }, []);
+ 
+
+
+
   return (
     <Page>
       <div className="flex flex-row mt-6">
@@ -39,12 +56,14 @@ export default function UserPage() {
           <div className="text-sm text-violet-500">
             {walletAddress.slice(0, 4)}...{walletAddress.slice(-4)}
           </div>
-          <div>
-            <p>Reputation</p>
-            <p>{globalScore}</p>
+          <div className='mt-2'>
+            <Tooltip content="User reliability" placement="right">
+                <p>{globalScore}</p>
+                <p className="text-sm text-slate-500">Reputation</p>
+            </Tooltip>
           </div>
-          <div className="flex">
-            <div className="flex-1">
+          <div className="flex mt-2">
+            <div className="w-24 flex-none">
               <p>{followers}</p>
               <p className="text-sm text-slate-500">Followers</p>
             </div>
