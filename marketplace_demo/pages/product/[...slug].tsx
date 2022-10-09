@@ -6,6 +6,7 @@ import Link from 'next/link';
 import ReviewContainer from '../../components/review/ReviewContainer';
 import { useState, useEffect } from "react";
 import { formatAddress } from '../../utils/formatting';
+import { WorldcoinWidget } from '../../components/profile';
 const { myReviews } = require("../../../backend/utils/reviewUtils");
 
 
@@ -20,10 +21,11 @@ export default function ProductPage() {
   })
 
   const [isLoading, setIsLoading] = useState(true);
-
+  const [isVerified, setIsVerified] = useState(false);
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    console.log("loading slug page");
    fetch(`http://localhost:8000/get-reviews/${nft.chainId}/${nft.contractAddr}/${nft.tokenId}`)
     .then( (response) => response.json())
     .then( (data) => {
@@ -55,13 +57,31 @@ export default function ProductPage() {
         transition={{ type: "linear", duration: 1 }} // Set the transition to linear
       >
         <div className="flex flex-row items-center justify-center rounded-3xl mt-12">
-              <Image
-                className="rounded-3xl mx-12 max-w-[30vw]"
-                src={nft.image}
-                alt="NFT file"
-                width={500}
-                height={500}
-              />
+              <div>
+                <Image
+                  className="rounded-3xl mx-12 max-w-[30vw]"
+                  src={nft.image}
+                  alt="NFT file"
+                  width={500}
+                  height={500}
+                />
+                <div className='pl-4 pt-4'><WorldcoinWidget signal={"43587"} setIsVerified={setIsVerified}/>
+                <div className='pt-4'>
+                { isVerified 
+                ? (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-500">
+                    <span className="w-1.5 h-1.5 inline-block bg-lime-400 rounded-full"></span>
+                    Verified
+                  </span>
+                  ) 
+                : (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-500">
+                    <span className="w-1.5 h-1.5 inline-block bg-red-400 rounded-full"></span>
+                    Not Verified
+                  </span>
+                  )
+                }
+                </div>
+                </div>
+              </div>
               <div className="p-8 mx-12 max-w-[30vw]">
                 <p
                   className="text-3xl font-semibold text-black dark:text-white my-4"

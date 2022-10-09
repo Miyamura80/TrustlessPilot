@@ -21,7 +21,7 @@
     "http-errors": "~1.6.3",
     "ipfs-core": "^0.16.1",
     "ipfs-http-client": "^56.0.2",
-    "jade": "~1.11.0",
+    "jade": "^1.9.2",
     "keccak256": "^1.0.6",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.20",
