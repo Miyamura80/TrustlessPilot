@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Link from 'next/link';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Hero } from './marketplace-features';
@@ -28,6 +28,12 @@ export default function Marketplace() {
       {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:90,tokenId:2,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338", name: "Satechi Slim X2 Bluetooth Keyboard", description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ..."},
       {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:72,tokenId:3,seller:"Eito",owner:"Konrad", image: "https://i.linio.com/p/6a8e19edc84b5bd450d68445d7534630-product.jpg", name: "Logitech Ergo K860", description: "Type more naturally with ERGO K860 - an advanced ergonomic keyboard that promotes a more relaxed typing posture – reducing wrist bending by 25% and offering ..."},
       {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:60,tokenId:4,seller:"Eito",owner:"Konrad", image: "https://m.media-amazon.com/images/I/71Bth-gHViL.jpg", name: "Logitech K780 Wireless Keyboard", description: "The aptly named Logitech K780 Multi-Device keyboard, like many others on the market, is able to connect to any number of Bluetooth-enabled .."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:82,tokenId:5,seller:"Eito",owner:"Konrad", image: "https://mechanicalkeyboards.com/shop/images/products/large_VA87M2WLLPn2W_main.jpg", name: "Varmilo VA87M Moonlight", description: "Meet the new, upgraded VA Series V2! The amazing colorways you love have just received a quality upgrade! All keyboards in this series now come with a standard USB-C cable."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:65,tokenId:6,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/0582/0242/3501/products/kinesis-freestyle-edge-rgbakinekb0915418-901573_1800x1800.png?v=1648553879", name: "Kinesis Freestyle Edge RGB", description: "The Freestyle Edge RGB is the first split mechanical keyboard designed specifically for gaming. It was engineered with input from serious gamers to meet ..."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:72,tokenId:7,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/0582/0242/3501/products/royal-kludge-rk71arkgakb0415471-921294_1800x1800.png?v=1648553904", name: "Royal Kludge RK71", description: "A compact 71 key Bluetooth mechanical keyboard from Royal Kludge. The RK-Gaming RK71 is fully programmable so you can customise your layout and lighting."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:80,tokenId:8,seller:"Eito",owner:"Konrad", image: "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/7215/7215241_sd.jpg", name: "Logitech - K360 Full-size Wireless Scissor Keyboard", description: "Logitech K360 wireless keyboard is ready when you are. This compact and portable keyboard fits into your tight workspaces, small offices or wherever you take your laptop or computer ..."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:67,tokenId:9,seller:"Eito",owner:"Konrad", image: "https://c1.neweggimages.com/ProductImage/32N-00EG-00002-S01.jpg", name: "MK1 PC Mechanical Gaming Keyboard", description: "7-Color LED BACKLIT KEYBOARD: The MK1 keyboard comes with RED LED backlighting. 87 standard conflict free keys, 12 multimedia keys. Space Saving Design: The Compact 87-keys Space-Saving Mechanical Keyboard Design ..."}
+
     ]
     setNfts(items);
     setLoadingState("loaded");
@@ -89,62 +95,51 @@ export default function Marketplace() {
         <div className="px-4" style={{ maxWidth: "1600px" }}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             {nfts.map((nft, i) => (
-              <div key={i} className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black" onClick={() => {
-                setContext({
-                  contractAddr: nft.contractAddr,
-                  chainId: nft.chainId,
-                  price: nft.price,
-                  tokenId: nft.tokenId,
-                  seller: nft.seller,
-                  owner: nft.owner,
-                  image: nft.image,
-                  name: nft.name,
-                  description: nft.description,
-                });
-                router.push(`/product/${nft.tokenId}`)
-              }}>
-                <div className="flex flex-row justify-center my-3">
-                <Image
-                  className="rounded-3xl"
-                  src={nft.image}
-                  alt="NFT file"
-                  width={340}
-                  height={257}
-                  quality={100}
-                />
-                </div>
-                <div className="p-4">
-                  <p
-                    style={{ height: "64px" }}
-                    className="text-2xl font-semibold"
-                  >
-                    {nft.name}
-                  </p>
-                  <div style={{ height: "70px", overflow: "hidden" }}>
-                    <p className="text-gray-400">{nft.description}</p>
+              <Link key={i} href={`/product/${nft.chainId}/${nft.contractAddr}/${nft.tokenId}/`} passHref>
+                <div className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black hover:cursor-pointer hover:scale-105 duration-200">
+                  <div className="flex flex-row justify-center my-3">
+                  <Image
+                    className="rounded-3xl"
+                    src={nft.image}
+                    alt="NFT file"
+                    width={340}
+                    height={257}
+                    quality={100}
+                  />
                   </div>
-                </div>
-                <div className="p-4 bg-zinc-800 dark:bg-zinc-900">
-                  <div className="text-2xl font-bold text-white flex flex-row items-center justify-center">
-                    {nft.price}{" "}
-                    <div className="mx-2">
-                      <Image
-                        src="/Polygon-Matic-Logo.png"
-                        alt="Polygon Matic Logo"
-                        width={20}
-                        height={20}
-                      />
+                  <div className="p-4">
+                    <p
+                      style={{ height: "64px" }}
+                      className="text-2xl font-semibold"
+                    >
+                      {nft.name}
+                    </p>
+                    <div style={{ height: "70px", overflow: "hidden" }}>
+                      <p className="text-gray-400">{nft.description}</p>
                     </div>
-                    MATIC
                   </div>
-                  <button
-                    className="mt-4 w-full bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 text-white font-bold py-2 px-12 rounded-3xl shadow-lg"
-                    onClick={() => console.log("buy nft")}
-                  >
-                    Buy
-                  </button>
+                  <div className="p-4 bg-zinc-800 dark:bg-zinc-900">
+                    <div className="text-2xl font-bold text-white flex flex-row items-center justify-center">
+                      {nft.price}{" "}
+                      <div className="mx-2">
+                        <Image
+                          src="/Polygon-Matic-Logo.png"
+                          alt="Polygon Matic Logo"
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                      MATIC
+                    </div>
+                    <button
+                      className="mt-4 w-full bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 text-white font-bold py-2 px-12 rounded-3xl shadow-lg"
+                      onClick={() => console.log("buy nft")}
+                    >
+                      Buy
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
