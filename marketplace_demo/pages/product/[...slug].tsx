@@ -70,7 +70,7 @@ export default function ProductPage() {
 
                 <div className='my-4'>
                   <p className='font-semibold text-black dark:text-white'>Seller:</p>
-                  <Link href={'/user'} passHref>
+                  <Link href={'/user?ad=' + nft.seller} passHref>
                     <div className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-gray-600 dark:text-gray-300'>
                       <span className='bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out'>
                         {nft.seller}
@@ -81,7 +81,7 @@ export default function ProductPage() {
 
                 <div className='my-4'>
                   <p className='font-semibold text-black dark:text-white'>Owner:</p>
-                  <Link href={'/user'} passHref>
+                  <Link href={'/user?ad=' + nft.owner} passHref>
                     <div className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-gray-600 dark:text-gray-300'>
                       <span className='bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out'>
                         {nft.owner}
