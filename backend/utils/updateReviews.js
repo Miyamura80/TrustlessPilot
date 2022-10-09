@@ -17,6 +17,7 @@ async function updateReviews(arrOfReviews) {
 
 async function addFields(review) {
   review.rating = await getReviewScore(review)
+  review.metadata = readFromCache(review.metadataUri);
   return review;
 }
 /**
