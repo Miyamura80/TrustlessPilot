@@ -4,13 +4,11 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Hero } from './marketplace-features';
 import { useRouter } from 'next/router'
-import { useProductContext } from "../pages/_app";
 import { WorldcoinHosted } from './profile';
 
 export default function Marketplace() {
   const [nfts, setNfts] = useState<any[]>([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
-  const [context, setContext] = useProductContext();
   const router = useRouter()
 
   useEffect(() => {
