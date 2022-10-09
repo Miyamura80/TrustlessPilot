@@ -2,7 +2,7 @@
 const { queryReviewsByAuthor } = require("../components/subgraph/queries");
 const { getReviewScore } = require("../utils/reviewUtils");
 
-export class User {
+class User {
 
     constructor(lensProfile) {
         this.profile = lensProfile
@@ -19,7 +19,9 @@ export class User {
     }
 
     async queryUserReviews() {
-        const wallet = require(this.profile.ownedBy)
+        const wallet = this.profile.address
+        console.log('in class ' + wallet)
+        if (!wallet) return [];
         const userReviews = await queryReviewsByAuthor(wallet);
         console.log(userReviews);
         return userReviews;
@@ -44,3 +46,4 @@ export class User {
     calculateOpinion() {}
   }
 
+module.exports.User = User

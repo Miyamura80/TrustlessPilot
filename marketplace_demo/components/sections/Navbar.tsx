@@ -35,7 +35,7 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   //Initialize within your constructor
   const web3auth = new Web3Auth({
-    clientId: "BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I", // Get your Client ID from Web3Auth Dashboard
+    clientId: process.env.REACT_APP_WEB3_CLIENT_ID, // Get your Client ID from Web3Auth Dashboard
     chainConfig: {
       chainNamespace: "eip155",
       chainId: "0x1",
@@ -56,7 +56,7 @@ export function Navbar() {
     await web3auth.logout();
     setIsConnected(false);
     setmyName("");
-    setmyPfp(null);    
+    setmyPfp(null);
   }
 
   async function connectUserWallet() {
@@ -69,7 +69,7 @@ export function Navbar() {
   }
 
   useEffect(() => {
-    initializeWeb3Auth();    
+    initializeWeb3Auth();
   }, []);
 
   return (
@@ -158,7 +158,7 @@ export function Navbar() {
                 </div>
               )
             }
-            
+
 
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? (
