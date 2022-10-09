@@ -1,27 +1,26 @@
-const NodeCache = require("node-cache");
+const { DB, reviews, metadata } = require("../db/setUp");
 const createKey = require("./createKey");
 
-const cache = new NodeCache({ stdTTL: 0 });
 /**
  * Implementation of a poor man's writeback cache.
  * @param value a value to pass to the cache
  * @returns  key created
- * @TODO GET APPRORIATE KEY TO PLACE IN CACHE
  */
 
 const hashToCache = (value) => {
   //if not in cache read, parse, place in cache, return value from cache
   const key = createKey(value);
-  const success = cache.set(key, value);
-  console.log(key, `:successfully cached ========> :`, success);
+  reviews.insert({
+    ...value,
+    hash: key,
+  });
+  console.log(key, `:successfully cached ========> :`);
   return key;
 };
 
 const readFromCache = (key) => {
   console.log(key, `:========>successfully retrieved`);
-  console.log('cached value ', cache.get(key));
-  console.log(cache.keys());
-  return cache.get(key);
+  return reviews.findOne({ hash: key });
 };
 
 module.exports = { hashToCache, readFromCache };

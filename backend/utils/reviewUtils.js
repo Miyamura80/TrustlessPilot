@@ -20,11 +20,15 @@ const myReviews = [{
   tokenId: '3',
   metadataUri: '2ef156f62e1d19d19a49970a8d7cf9c193a41277e353c07985ad3c4315c44519',
   author: '0x0000000ab702853d1163d38d047fa351fa78e9d3',
+  imageUrl: "https://github.com/Miyamura80/W3Rate/blob/main/marketplace_demo/public/profile1.png?raw=true",
+  name: "0x0000000ab702853d1163d38d047fa351fa78e9d3",
+  reputation: 45,
+  upvotes: 221,
   reviewId: '2',
   __typename: 'ReviewSubmittedEntity',
   rating: 4,
   metadata: {
-    title: 'So great I bought 4',
+    title: 'Fantastic Keyboard!',
     score: 20,
     content: 'I adore this keyboard, perfect for degens.',
   }
@@ -39,13 +43,17 @@ const myReviews = [{
   tokenId: '3',
   metadataUri: '2ef156f62e1d19d19a49970a8d7cf9c193a41277e353c07985ad3c4315c44519',
   author: '0x0000000ab702853d1163d38d047fa351fa78e9d3',
+  imageUrl: 'https://github.com/Miyamura80/W3Rate/blob/main/marketplace_demo/public/profile2.jpg?raw=true',
+  name: "kopykat.lens",
+  reputation: 31,
+  upvotes: 379,
   reviewId: '2',
   __typename: 'ReviewSubmittedEntity',
-  rating: 0,
+  rating: 3,
   metadata: {
-    title: 'Placeholder title 2',
+    title: 'Okay keyboard for price',
     score: 20,
-    content: 'I adore this keyboard, perfect for degens.',
+    content: 'Good performance ratio for the reasonable price!',
   }
   }
 ]

@@ -29,6 +29,10 @@ contract KeyboardLand is ERC1155, Ownable, Pausable, ERC1155Burnable {
 
     //when nft is minted, send notification
     //when nft is transfered, send notifications
+    /**
+ Targeted Notifications ⇒ Notification will be sent to a specific wallet address
+ Subset Notifications ⇒ Notification will be sent to a group of wallet addresses
+     */
 
     function mint(
         address account,

@@ -7,22 +7,22 @@ export default function SingleReview(props) {
     return (
     <div className="flex flex-row m-4 mb-6 dark:text-gray-300">
         <div className="flex-shrink mr-4 mt-4">
-          <Voting></Voting>
+          <Voting totalVotes={review.upvotes}></Voting>
         </div>
         <div className="flex-1 w-42 bg-white dark:bg-gray-700 dark:border-gray-600 rounded-2xl">
             <div className="p-4 rounded-xl">
                 <div className="flex items-center mb-4">
                     <Link href="/UserPage">
                         <div className='flex-shrink'>
-                                <img src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-4-470x470.png" height="50" width="50" className="rounded-full mr-4 cursor-pointer" />
+                                <img src={review.imageUrl} height="50" width="50" className="rounded-full mr-4 cursor-pointer" />
                         </div>
                     </Link>
                     <div className="flex-auto cursor-pointer">
-                        <h2>
-                            Reviewer Name
+                        <h2 className="font-semibold">
+                            {review.name}
                         </h2>
                         <h2>
-                            Reputation
+                            Reputation: {review.reputation}
                         </h2>
                     </div>
                 </div>

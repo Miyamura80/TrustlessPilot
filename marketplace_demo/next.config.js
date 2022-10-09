@@ -9,6 +9,7 @@ module.exports = {
       'i.linio.com',
       'm.media-amazon.com',
       'lh3.googleusercontent.com',
+      'github.com',
     ],
   }
 }

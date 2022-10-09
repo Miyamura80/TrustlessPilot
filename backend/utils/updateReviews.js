@@ -16,8 +16,19 @@ async function updateReviews(arrOfReviews) {
  */
 
 async function addFields(review) {
-  review.rating = await getReviewScore(review)
-  review.metadata = readFromCache(review.metadataUri);
+  const { metadataUri, reviewId } = review;
+  const ratingsArr = await queryReviewRatings(reviewId);
+  let weight = new Weight();
+  let ratingSum = 0;
+  ratingsArr.forEach((ratingObj) => {
+    const { score } = ratingObj;
+    ratingSum += score;
+    weight = updateWeight(score, weight);
+  });
+  review.rating = ratingsArr.length < 1 ? 0 : ratingSum / ratingsArr.length;
+  review.metadata = readFromCache(metadataUri);
+  review.weight = weight;
+  review.rating = await getReviewScore(review);
   return review;
 }
 /**
