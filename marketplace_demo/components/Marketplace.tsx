@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Hero } from './marketplace-features';
 import { useRouter } from 'next/router'
-import { WorldcoinHosted } from './profile';
 
 export default function Marketplace() {
   const [nfts, setNfts] = useState<any[]>([]);
