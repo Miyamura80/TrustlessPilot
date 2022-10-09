@@ -9,19 +9,26 @@ import { publicProvider } from "wagmi/providers/public";
 import { useContext, useState, useEffect } from 'react'
 import React from 'react';
 import { Web3Auth } from "@web3auth/web3auth";
+import { MetamaskAdapter } from "@web3auth/metamask-adapter";
+
 
 const { chains, provider } = configureChains([chain.mainnet, chain.polygon], [publicProvider()]);
 // console.log("Amalia provider")
 // console.log(process.env.REACT_APP_WEB3_CLIENT_ID);
+const REACT_APP_WEB3_CLIENT_ID = `BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I`
+
 const constructorParams = {
   chains,
   options: {
     enableLogging: true,
-    clientId: `BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I`, // Get your own client id from https://dashboard.web3auth.io
+    clientId: REACT_APP_WEB3_CLIENT_ID, // Get your own client id from https://dashboard.web3auth.io
     network: "testnet", // web3auth network, "mainnet", "cyan", or "aqua"
     chainId: "0x1", // chainId that you want to connect with
   },
 }
+const metamaskAdapter = new MetamaskAdapter({
+  clientId: REACT_APP_WEB3_CLIENT_ID,
+});
 
 const wagmiClient = createClient({
   autoConnect: true,
@@ -43,12 +50,13 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     const init = async () => {
       try {
         const web3auth = new Web3Auth({
-          clientId: `BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I`,
+          clientId: REACT_APP_WEB3_CLIENT_ID,
           chainConfig: {
             chainNamespace: "eip155",
             chainId: "0x1",
           },
         });
+        web3auth.configureAdapter(metamaskAdapter);
 
         setWeb3auth(web3auth);
 
