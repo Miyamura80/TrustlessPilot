@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import ReviewContainer from "../components/review/ReviewContainer";
 import { useAccount } from 'wagmi';
 
+
 export default function UserPage() {
   const router = useRouter();
   const { address:connectedAddress } = useAccount();
@@ -87,7 +88,7 @@ export default function UserPage() {
             </h4>
             <h4 className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-black dark:text-white text-xl font-semibold mx-12' onClick={() => setActiveTab('ratings')}>
               <span className={'bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out' + (activeTab == 'ratings' ? " bg-[length:100%_2px]" : " bg-[length:0%_2px]")}>
-                Reviews rates
+                Reviews rated
               </span>
             </h4>
             <h4 className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-black dark:text-white text-xl font-semibold mx-12' onClick={() => setActiveTab('nfts')}>
@@ -414,9 +415,12 @@ export default function UserPage() {
           </div>
           <div className="flex flex-row justify-center mt-6">
             {profileData.worldCoinVerified ?
+            <div className="flex flex-col justify-center">
             <img
               src="https://assets.lenster.xyz/images/badges/worldcoin.png"
-              className="h-16 w-16"/>:
+              className="h-16 w-16 mx-auto"/>
+            <h5 className="text-base text-center font-semibold mt-2">Verified human</h5>
+            </div>:
             null}
             { walletAddress == connectedAddress ?
             <WorldcoinWidget signal="43587" /> : null}
@@ -431,7 +435,7 @@ export default function UserPage() {
             </h4>
             <h4 className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-black dark:text-white text-xl font-semibold mx-12' onClick={() => setActiveTab('ratings')}>
               <span className={'bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out' + (activeTab == 'ratings' ? " bg-[length:100%_2px]" : " bg-[length:0%_2px]")}>
-                Reviews rates
+                Reviews rated
               </span>
             </h4>
             <h4 className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-black dark:text-white text-xl font-semibold mx-12' onClick={() => setActiveTab('nfts')}>
@@ -442,7 +446,9 @@ export default function UserPage() {
           </div>
           <div className="flex flex-col justify-center my-4">
             { (activeTab == 'reviews' )
-            ? <ReviewContainer reviews={reviews} showReviewDialog={false} showRatingBreakdown={false} />
+            ? <div className="flex justify-center">
+              <ReviewContainer reviews={reviews} showReviewDialog={false} showRatingBreakdown={false} />
+              </div>
             : <></>
             }
 

@@ -8,6 +8,7 @@ import { formatAddress } from '../../utils/formatting';
 import { WorldcoinWidget } from '../../components/profile';
 const { myReviews } = require("../../../backend/utils/reviewUtils");
 import { useRouter } from 'next/router'
+import { getKeyboard } from '../../utils/keyboards';
 
 const defaultNft = {
   contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2,
@@ -21,6 +22,7 @@ export default function ProductPage() {
 
   const [isVerified, setIsVerified] = useState(false);
   const router = useRouter();
+  const [nftData, setNftData] = useState(null)
   const [nft, setNft] = useState(null)
 
   const [isReady, setIsReady] = useState(router.isReady)
@@ -29,24 +31,25 @@ export default function ProductPage() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-   if (!nft) return;
+   if (!nftData) return;
+   console.log('nft', getKeyboard(nftData.tokenId))
    console.log("in useEffect", nft)
-   fetch(`http://localhost:8000/get-reviews/${nft.chainId}/${nft.contractAddr}/${nft.tokenId}`)
+   fetch(`http://localhost:8000/get-reviews/${nftData.chainId}/${nftData.contractAddr}/${nftData.tokenId}`)
     .then( (response) => response.json())
     .then( (data) => {
         console.log('product data request', data)
         setData(data);
     })
     .then(() => setIsLoading(false))
-    .then(() => setNft(defaultNft)) // adding hardcoded fields so frontend works)
     .catch((error) => console.log(error));
-  }, [nft]);
+    setNft(getKeyboard(nftData.tokenId))
+  }, [nftData]);
 
   useEffect(() => {
     setIsReady(router.isReady)
     if (router.query.slug) {
        console.log("router ", router.query)
-       setNft({
+       setNftData({
         chainId: router.query.slug[0],
         contractAddr: router.query.slug[1],
         tokenId: router.query.slug[2]
@@ -92,12 +95,12 @@ export default function ProductPage() {
                 />
                 <div className='pl-4 pt-4'><WorldcoinWidget signal={"43587"} setIsVerified={setIsVerified}/>
                 <div className='pt-4'>
-                { isVerified 
+                { isVerified
                 ? (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-500">
                     <span className="w-1.5 h-1.5 inline-block bg-lime-400 rounded-full"></span>
                     Verified
                   </span>
-                  ) 
+                  )
                 : (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-500">
                     <span className="w-1.5 h-1.5 inline-block bg-red-400 rounded-full"></span>
                     Not Verified
@@ -142,7 +145,7 @@ export default function ProductPage() {
 
                 <div className='my-4'>
                   <p className='font-semibold text-black dark:text-white'>Owner:</p>
-                  <Link href={'/user?ad=' + nft.owner.address} passHref>
+                  <Link href={'/user?ad=' + nft.owner['address']} passHref>
                     <div className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-gray-600 dark:text-gray-300'>
                       <span className='bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out'>
                         {nft.owner.lens ? nft.owner.lens : formatAddress(nft.owner.address)}
