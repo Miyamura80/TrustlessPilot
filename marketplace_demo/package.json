@@ -22,6 +22,7 @@
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.1.12",
     "framer-motion": "^7.5.3",
+    "graphql-tag": "^2.12.6",
     "ipfs-http-client": "^58.0.1",
     "next": "12.3.1",
     "next-themes": "^0.2.1",

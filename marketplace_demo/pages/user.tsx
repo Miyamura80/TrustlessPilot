@@ -1,31 +1,28 @@
 import { Page } from "../components/Page";
 import ReviewText from "../components/review/ReviewText";
-import Image from "next/image";
-import { MdVerified } from "react-icons/md";
-import { FaVoteYea } from "react-icons/fa";
-import { BsPencilSquare } from "react-icons/bs";
 import Voting from "../components/review/Voting";
 import { useState, useEffect } from "react";
-<<<<<<< HEAD
 import { formatAddress } from '../utils/formatting';
 import { WorldcoinWidget } from '../components/profile'
 import { useRouter } from 'next/router'
-=======
 import ReviewContainer from "../components/review/ReviewContainer";
->>>>>>> 155a308de0a602750a6f4f6cb2c0e1e93bb9fc0d
+
 
 export default function UserPage() {
   const router = useRouter();
-  const walletAddress = "0xF7C012789aac54B5E33EA5b88064ca1F1172De05";
   const verifiedHuman = true;
   const globalScore = 2000;
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [walletAddress, setWalletAddress] = useState("");
+  const [isReady, setIsReady] = useState(router.isReady)
+  const [isLoading, setIsLoading] = useState(true)
+  const [hasMounted, setHasMounted] = useState(false)
 
   const [data, setData] = useState(null);
   const [activeTab, setActiveTab] = useState('reviews')
 
   useEffect(() => {
+    if (!walletAddress) return;
     fetch(`http://localhost:8000/user/${walletAddress}`)
       .then((response) => response.json())
       .then((data) => {
@@ -34,9 +31,24 @@ export default function UserPage() {
       })
       .then(() => setIsLoading(false))
       .catch((error) => console.log(error));
-  }, []);
+  }, [walletAddress])
 
-  if (isLoading) return <div>loading</div>;
+  useEffect(() => {
+    setIsReady(router.isReady)
+    if (router.query['ad']) {
+      setWalletAddress(router.query['ad'])
+    }
+  }, [router])
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
+  if (!hasMounted) {
+    return null
+  }
+
+  if (isLoading || !isReady ) return <div>loading</div>;
+  console.log("router ", router.query)
   console.log("data ", data);
   const reviews = data.userReviews;
   const profileData = data.profile.profiles[0];
@@ -107,7 +119,11 @@ export default function UserPage() {
             </h4>
           </div>
           <div className="flex flex-col justify-center my-4">
-            {activeTab == 'reviews' ? displayReviews : null}
+            { (activeTab == 'reviews' )
+            ? <ReviewContainer data={reviews} />
+            : <></>
+            }
+
           </div>
         </div>
       </div>

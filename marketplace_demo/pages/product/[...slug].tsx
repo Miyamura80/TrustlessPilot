@@ -1,29 +1,33 @@
 import { Page } from '../../components/Page';
-import { useProductContext } from '../_app';
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from 'next/link';
 import ReviewContainer from '../../components/review/ReviewContainer';
 import { useState, useEffect } from "react";
 import { formatAddress } from '../../utils/formatting';
-const { myReviews } = require("../../../backend/utils/reviewUtils");
+const { myReviews } = require("../../../backend/utils/reviewUtils")
+import { useRouter } from 'next/router'
 
-
+const defaultNft = {
+  contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2,
+  price:90, tokenId:2, seller:{ address: "0x526E0cFF86ab0f0b92ABa83e53d5B05bA2Bea956", lens: null }, owner:{ address: "0xF7C012789aac54B5E33EA5b88064ca1F1172De05", lens: "kopykat.lens"},
+  image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338",
+  name: "Satechi Slim X2 Bluetooth Keyboard",
+  description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ...",
+}
 
 export default function ProductPage() {
-  const [nft, setNft] = useState({
-    contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2,
-    price:90, tokenId:2, seller:{ address: "0x526E0cFF86ab0f0b92ABa83e53d5B05bA2Bea956", lens: null }, owner:{ address: "0xF7C012789aac54B5E33EA5b88064ca1F1172De05", lens: "kopykat.lens"},
-    image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338",
-    name: "Satechi Slim X2 Bluetooth Keyboard",
-    description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ...",
-  })
+  const router = useRouter();
+  const [nft, setNft] = useState(null)
 
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [isReady, setIsReady] = useState(router.isReady)
+  const [isLoading, setIsLoading] = useState(true)
+  const [hasMounted, setHasMounted] = useState(false)
   const [data, setData] = useState(null);
 
   useEffect(() => {
+   if (!nft) return;
+   console.log("in useEffect", nft)
    fetch(`http://localhost:8000/get-reviews/${nft.chainId}/${nft.contractAddr}/${nft.tokenId}`)
     .then( (response) => response.json())
     .then( (data) => {
@@ -31,15 +35,35 @@ export default function ProductPage() {
         setData(data);
     })
     .then(() => setIsLoading(false))
+    .then(() => setNft(defaultNft)) // adding hardcoded fields so frontend works)
     .catch((error) => console.log(error));
   }, [nft]);
 
-  if (isLoading) return <div>loading</div>;
+  useEffect(() => {
+    setIsReady(router.isReady)
+    if (router.query.slug) {
+       console.log("router ", router.query)
+       setNft({
+        chainId: router.query.slug[0],
+        contractAddr: router.query.slug[1],
+        tokenId: router.query.slug[2]
+        })
+    }
+  }, [router])
 
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
+  if (!hasMounted) {
+    return null
+  }
+
+  if (isLoading || !isReady) return <div>loading</div>;
 
   console.log("data ", data);
   // const reviews = data.userReviews;    // legit version
   const reviews = myReviews
+
 
   return (
     <Page>
