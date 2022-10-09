@@ -35,7 +35,7 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   //Initialize within your constructor
   const web3auth = new Web3Auth({
-    clientId: process.env.REACT_APP_WEB3_CLIENT_ID, // Get your Client ID from Web3Auth Dashboard
+    clientId: `BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I`, // Get your Client ID from Web3Auth Dashboard
     chainConfig: {
       chainNamespace: "eip155",
       chainId: "0x1",

@@ -15,12 +15,11 @@ const constructorParams = {
   chains,
   options: {
     enableLogging: true,
-    clientId: `${process.env.REACT_APP_WEB3_CLIENT_ID}`, // Get your own client id from https://dashboard.web3auth.io
+    clientId: `BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I`, // Get your own client id from https://dashboard.web3auth.io
     network: "testnet", // web3auth network, "mainnet", "cyan", or "aqua"
     chainId: "0x1", // chainId that you want to connect with
   },
 }
-console.log(JSON.stringify(constructorParams))
 const wagmiClient = createClient({
   autoConnect: true,
   connectors: [
