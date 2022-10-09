@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Hero } from './marketplace-features';
 import { useRouter } from 'next/router'
 import { useProductContext } from "../pages/_app";
+import { WorldcoinWidget } from './profile';
 
 export default function Marketplace() {
   const [nfts, setNfts] = useState<any[]>([]);
@@ -83,6 +84,7 @@ export default function Marketplace() {
       transition={{ type: "linear", duration: 1 }} // Set the transition to linear
     >
       <Hero/>
+      <WorldcoinWidget signal="43587" />
       <div className="flex justify-center mt-20">
         <div className="px-4" style={{ maxWidth: "1600px" }}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">

@@ -6,6 +6,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import { DarkModeButton } from "../utils/DarkModeButton";
 import { motion } from "framer-motion";
+import { useEnsName } from 'wagmi'
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -39,6 +40,9 @@ export function Navbar() {
   const [myPfp, setmyPfp] = useState("");
   const [isConnected, setIsConnected] = useState(false);
 
+  const { data, isError, isLoading } = useEnsName({
+    address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  })
 
 
   async function disconnectUserWallet() {
@@ -51,6 +55,7 @@ export function Navbar() {
   async function connectUserWallet() {
     await web3auth.connect();
     const userInfo = await web3auth.getUserInfo();
+    console.log(userInfo)
     setmyName(userInfo.name);
     setmyPfp(userInfo.profileImage);
     setIsConnected(true);
@@ -131,12 +136,11 @@ export function Navbar() {
                     />
                     <div className="ml-3">
                       <h3 className="font-semibold text-gray-800 dark:text-black">{myName}</h3>
-                      <p className="text-sm font-medium text-gray-400">Connected</p>
                     </div>
                   </div>
                 </div>
 
-                  <button type="button" onClick={() => disconnectUserWallet()} className="py-1 px-3 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                  <button type="button" onClick={() => disconnectUserWallet()} className="inline-flex justify-center items-center gap-2 rounded-3xl font-semibold bg-gradient-to-r from-red-500 via-red-700 to-orange-500 text-white hover:scale-105 duration-200 text-xl py-2 px-4">
                     Disconnect
                   </button>
                 </div>

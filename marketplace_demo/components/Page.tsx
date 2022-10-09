@@ -11,8 +11,8 @@ export function Page({ children }: PageProps) {
   return (
     <div className="bg-neutral-200 dark:bg-zinc-800">
       <Head>
-        <title>ECommerce | NFTMarketplace</title>
-        <meta name="description" content="ECommerce Demo - NFTMarketplace" />
+        <title>KeyboardLand</title>
+        <meta name="description" content="Lets get those keyboards" />
         <link rel="icon" href="/keyboard.png" />
       </Head>
       <Navbar />
