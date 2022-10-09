@@ -1,15 +1,12 @@
 import type { NextPage } from "next";
-import Carousel from "../components/Carousel";
+import Marketplace from "../components/Marketplace";
 import { Page } from "../components/Page";
-import MarketplacePage from "./MarketplacePage";
-import ReviewContainer from '../components/review/ReviewContainer'
-import MyCollectionPage from "./MyCollectionPage";
 
 const Home: NextPage = () => {
   return (
-    <>
-      <MarketplacePage />
-    </>
+    <Page>
+      <Marketplace />
+    </Page>
   );
 };
 

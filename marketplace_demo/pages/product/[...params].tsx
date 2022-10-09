@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/router'
 import { Page } from '../../components/Page';
-import { useAuthContext, useProductContext } from '../_app';
+import { useProductContext } from '../_app';
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
@@ -13,12 +13,11 @@ const ProductPage = () => {
   const queryResult = router.query;
 
   const [productContext, setProductContext] = useProductContext();
-  const [web3auth, setWeb3auth] = useAuthContext();
 
   const {price,tokenId,seller,owner,image,name,description} = productContext;
 
   return (
-    <Page>      
+    <Page>
       <motion.div animate={{ scale: [0.5, 1] }} transition={{ duration: 1 }}>
         <div className="flex items-center h-screen w-screen">
           <div className="border rounded-xl">
@@ -51,7 +50,7 @@ const ProductPage = () => {
                   />
                   MATIC
                 </div>
-                
+
                 <br/>
 
                 <div className='text-gray-500'>
