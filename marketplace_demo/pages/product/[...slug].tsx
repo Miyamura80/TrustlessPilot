@@ -107,6 +107,8 @@ export default function ProductPage() {
                 </div>
 
               </div>
+        </div>
+        <div className="flex justify-center mt-8">
           <ReviewContainer data={reviews} />
         </div>
       </motion.div>

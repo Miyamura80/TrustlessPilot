@@ -22,11 +22,11 @@ const myReviews = [{
   author: '0x0000000ab702853d1163d38d047fa351fa78e9d3',
   reviewId: '2',
   __typename: 'ReviewSubmittedEntity',
-  rating: 3,
+  rating: 4,
   metadata: {
-    title: 'Placeholder title 1',
+    title: 'So great I bought 4',
     score: 20,
-    content: 'I adore this keyboard, perfect for degens',
+    content: 'I adore this keyboard, perfect for degens.',
   }
   },
   {
@@ -45,7 +45,7 @@ const myReviews = [{
   metadata: {
     title: 'Placeholder title 2',
     score: 20,
-    content: 'I adore this keyboard, perfect for degens',
+    content: 'I adore this keyboard, perfect for degens.',
   }
   }
 ]

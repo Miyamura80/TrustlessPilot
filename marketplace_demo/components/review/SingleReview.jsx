@@ -5,7 +5,7 @@ import ReviewText from './ReviewText'
 export default function SingleReview(review) {
     console.log('review ', review)
     return (
-    <div className="flex flex-row m-2 dark:text-gray-300">
+    <div className="flex flex-row m-4 mb-6 dark:text-gray-300">
         <div className="flex-shrink mr-4 mt-4">
           <Voting></Voting>
         </div>
