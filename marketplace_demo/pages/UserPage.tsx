@@ -24,7 +24,10 @@ export default function UserPage() {
 
   useEffect(() => {
    fetch(`http://localhost:8000/user/${walletAddress}`)
-    .then((response) => console.log(response))
+    .then( (response) => response.json())
+    .then( (data) => {
+        console.log('user data request ', data) // for format of data object look at subgraph/queries
+    })
     .catch((error) => console.log(error));
   }, []);
 
