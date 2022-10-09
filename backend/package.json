@@ -27,6 +27,7 @@
     "urql": "^3.0.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "eslint": "^8.25.0",
     "node-cache": "^5.1.2",
     "prettier": "^2.7.1"
