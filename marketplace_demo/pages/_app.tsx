@@ -26,7 +26,7 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
+  appName: 'KeyboardLand',
   chains
 });
 
@@ -40,6 +40,7 @@ const ProductContext = createContext([]);
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [productContext, setProductContext] = useState({price:0,tokenId:0,seller:"",owner:"",image:"",name:"",description:""});
+
 
   return (
     <WagmiConfig client={wagmiClient}>

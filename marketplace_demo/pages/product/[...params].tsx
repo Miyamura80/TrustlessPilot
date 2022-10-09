@@ -1,20 +1,33 @@
 
 
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { Page } from '../../components/Page';
 import { useProductContext } from '../_app';
 import { motion } from "framer-motion";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import ReviewContainer from '../../components/review/ReviewContainer';
+import { useState, useEffect } from "react";
 
-const ProductPage = () => {
+
+export default function ProductPage() {
   const router = useRouter()
   const queryResult = router.query;
 
   const [productContext, setProductContext] = useProductContext();
 
-  const {price,tokenId,seller,owner,image,name,description} = productContext;
+  const {contractAddr, chainId, price,tokenId,seller,owner,image,name,description} = productContext;
+
+  const [followers, setFollowers] = useState(null);
+
+  useEffect(() => {
+   console.log(contractAddr)
+   fetch(`http://localhost:8000/get-reviews/${chainId}/${contractAddr}/${tokenId}`)
+    .then( (response) => response.json())
+    .then( (data) => {
+        console.log('product data request', data)
+    })
+    .catch((error) => console.log(error));
+  }, []);
 
   return (
     <Page>
