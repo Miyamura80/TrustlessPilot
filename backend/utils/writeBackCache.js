@@ -19,6 +19,8 @@ const hashToCache = (value) => {
 
 const readFromCache = (key) => {
   console.log(key, `:========>successfully retrieved`);
+  console.log('cached value ', cache.get(key));
+  console.log(cache.keys());
   return cache.get(key);
 };
 
