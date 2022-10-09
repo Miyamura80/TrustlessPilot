@@ -9,18 +9,22 @@ import { publicProvider } from "wagmi/providers/public";
 
 
 const { chains, provider } = configureChains([chain.mainnet, chain.polygon], [publicProvider()]);
+// console.log("Amalia provider")
+// console.log(process.env.REACT_APP_WEB3_CLIENT_ID);
+const constructorParams = {
+  chains,
+  options: {
+    enableLogging: true,
+    clientId: `${process.env.REACT_APP_WEB3_CLIENT_ID}`, // Get your own client id from https://dashboard.web3auth.io
+    network: "testnet", // web3auth network, "mainnet", "cyan", or "aqua"
+    chainId: "0x1", // chainId that you want to connect with
+  },
+}
+console.log(JSON.stringify(constructorParams))
 const wagmiClient = createClient({
   autoConnect: true,
   connectors: [
-    new Web3AuthConnector({
-      chains,
-      options: {
-        enableLogging: true,
-        clientId: process.env.REACT_APP_WEB3_CLIENT_ID, // Get your own client id from https://dashboard.web3auth.io
-        network: "testnet", // web3auth network, "mainnet", "cyan", or "aqua"
-        chainId: "0x1", // chainId that you want to connect with
-      },
-    }),
+    new Web3AuthConnector(constructorParams),
     new InjectedConnector({ chains }),
   ],
   provider,
