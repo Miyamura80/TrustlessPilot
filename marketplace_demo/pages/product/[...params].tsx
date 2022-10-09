@@ -21,7 +21,8 @@ export default function ProductPage() {
   const [followers, setFollowers] = useState(null);
 
   useEffect(() => {
-   fetch(`http://localhost:8000/${chainId}/${contractAddr}/${tokenId}`)
+   console.log(contractAddr)
+   fetch(`http://localhost:8000/get-reviews/${chainId}/${contractAddr}/${tokenId}`)
     .then( (response) => response.json())
     .then( (data) => {
         console.log('product data request', data)
