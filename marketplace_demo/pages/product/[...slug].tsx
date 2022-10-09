@@ -37,8 +37,8 @@ export default function ProductPage() {
         console.log('product data request', data)
         setData(data);
     })
-    .then(() => setIsLoading(false))
     .then(() => setNft(defaultNft)) // adding hardcoded fields so frontend works)
+    .then(() => setIsLoading(false))
     .catch((error) => console.log(error));
   }, [nft]);
 
