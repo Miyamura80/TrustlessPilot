@@ -34,6 +34,40 @@ function queryReviews(chainId, contractAddress, tokenId) {
     })
 }
 
+
+function queryReviewsByAuthor(authorWallet) {
+  function getQuery(authorWallet) {
+    return `
+    {
+      reviewSubmittedEntities(where: { author: ${authorWallet} }) {
+        id
+        blockNumber
+        timestamp
+        count
+        chainID
+        contractAddress
+        tokenId
+        metadataUri
+        author
+        reviewId
+      }
+    }
+    `
+  }
+
+  return client
+    .query({
+      query: gql(getQuery(authorWallet)),
+    })
+    .then((reviews) => {
+      return(reviews['data']['reviewSubmittedEntities']);
+    })
+    .catch((err) => {
+      console.log('Error fetching data: ', err)
+      return;
+    })
+}
+
 function queryReviewRatings(reviewId) {
   function getQuery(reviewId) {
     return `
