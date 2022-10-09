@@ -1,4 +1,4 @@
-const { queryReviewRatings } = require("../components/subgraph/queries");
+const { getReviewScore } = require("./reviewUtils");
 const { readFromCache } = require("./writeBackCache");
 /**
  * @param {*} arrOfReviews array of reviewsObjects returned from querying reviews
@@ -10,14 +10,7 @@ async function updateReviews(arrOfReviews) {
 }
 
 async function addFields(review) {
-  const { metadataUri, reviewId } = review;
-  const ratingsArr = await queryReviewRatings(reviewId);
-  const ratingSum = ratingsArr.reduce(
-    (sum, ratingObj) => (sum += ratingObj.score),
-    0
-  );
-  review.rating = ratingsArr.length < 1 ? 0 : ratingSum / ratingsArr.length;
-  review.metadata = readFromCache(metadataUri);
+  review.rating = await getReviewScore(review)
   return review;
 }
 
