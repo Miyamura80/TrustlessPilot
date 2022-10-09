@@ -1,5 +1,3 @@
-
-
 import { useRouter } from 'next/router';
 import { Page } from '../../components/Page';
 import { useProductContext } from '../_app';
@@ -11,33 +9,38 @@ import { useState, useEffect } from "react";
 
 export default function ProductPage() {
   const router = useRouter()
-  const queryResult = router.query;
+  const { slug } = router.query
+  console.log(slug)
 
-  const [productContext, setProductContext] = useProductContext();
-
-  const {contractAddr, chainId, price,tokenId,seller,owner,image,name,description} = productContext;
-
-  const [followers, setFollowers] = useState(null);
-
-  useEffect(() => {
-   console.log(contractAddr)
-   fetch(`http://localhost:8000/get-reviews/${chainId}/${contractAddr}/${tokenId}`)
-    .then( (response) => response.json())
-    .then( (data) => {
-        console.log('product data request', data)
-    })
-    .catch((error) => console.log(error));
-  }, []);
+  // useEffect(() => {
+  //  console.log(contractAddr)
+  //  fetch(`http://localhost:8000/get-reviews/${chainId}/${contractAddr}/${tokenId}`)
+  //   .then( (response) => response.json())
+  //   .then( (data) => {
+  //       console.log('product data request', data)
+  //   })
+  //   .catch((error) => console.log(error));
+  // }, []);
 
   return (
     <Page>
-      <motion.div animate={{ scale: [0.5, 1] }} transition={{ duration: 1 }}>
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, x: 0, y: 200 },
+          enter: { opacity: 1, x: 0, y: 0 },
+          exit: { opacity: 0, x: 0, y: 0 },
+        }} // Pass the variant object into Framer Motion
+        initial="hidden" // Set the initial state to variants.hidden
+        animate="enter" // Animated state to variants.enter
+        exit="exit" // Exit state (used later) to variants.exit
+        transition={{ type: "linear", duration: 1 }} // Set the transition to linear
+      >
         <div className="flex items-center h-screen w-screen">
           <div className="border rounded-xl">
             <div>
               <Image
                 className="rounded"
-                src={image}
+                src={"/Polygon-Matic-Logo.png"}
                 alt="NFT file"
                 width={350}
                 height={257}
@@ -48,13 +51,13 @@ export default function ProductPage() {
                   style={{ height: "64px" }}
                   className="text-2xl font-semibold"
                 >
-                  {name}
+                  {"name"}
                 </p>
                 <div style={{ height: "70px", overflow: "hidden" }}>
-                  <p className="text-gray-400">{description}</p>
+                  <p className="text-gray-400">{"description"}</p>
                 </div>
                 <div className="text-2xl font-bold ">
-                  {price}{" "}
+                  {"price"}{" "}
                   <Image
                     src="/Polygon-Matic-Logo.png"
                     alt="Polygon Matic Logo"
@@ -68,21 +71,21 @@ export default function ProductPage() {
 
                 <div className='text-gray-500'>
                   <p className='font-semibold'>Seller:</p>
-                  <p>{seller}</p>
+                  <p>{"seller"}</p>
                 </div>
 
                 <br/>
 
                 <div className='text-gray-500'>
                   <p className='font-semibold'>Owner:</p>
-                  <p>{owner}</p>
+                  <p>{"owner"}</p>
                 </div>
 
                 <br/>
 
                 <div className='text-gray-500'>
                   <p className='font-semibold'>Token ID:</p>
-                  <p>{tokenId}</p>
+                  <p>{"tokenId"}</p>
                 </div>
 
               </div>
@@ -95,4 +98,9 @@ export default function ProductPage() {
   );
 }
 
-export default ProductPage
+export const getStaticProps = async ({ params }) => {
+    const post = await getSinglePost(params.slug);
+    return {
+      props: { ...post },
+    };
+};

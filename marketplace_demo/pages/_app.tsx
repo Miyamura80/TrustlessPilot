@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
-import { useContext, useState, useEffect, createContext } from 'react'
+import { useState, useEffect } from 'react'
 import '@rainbow-me/rainbowkit/styles.css';
 import {
   getDefaultWallets,
@@ -36,7 +36,6 @@ const wagmiClient = createClient({
   provider
 })
 
-const ProductContext = createContext([]);
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [productContext, setProductContext] = useState({price:0,tokenId:0,seller:"",owner:"",image:"",name:"",description:""});
@@ -55,17 +54,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
            learnMoreUrl: 'https://signet3.xyz',
          }}>
         <ThemeProvider attribute="class">
-          <ProductContext.Provider value={[productContext, setProductContext]}>
-            <Component {...pageProps} />
-          </ProductContext.Provider>
+          <Component {...pageProps} />
         </ThemeProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );
-}
-
-export function useProductContext() {
-  return useContext(ProductContext);
 }
 
 export default MyApp;

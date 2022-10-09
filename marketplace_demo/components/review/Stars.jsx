@@ -1,7 +1,7 @@
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 
-export default function Stars() {
-  const stars = 3;
+export default function Stars({data}) {
+  const stars = data.stars;
   const filled_stars = [...Array(stars)].map((i, index) => (
     <div className="flex-shrink" key={index}>
       <AiFillStar size="20" />

@@ -1,16 +1,16 @@
 import Stars from "./Stars";
 
-export default function ReviewText() {
+export default function ReviewText({data}) {
+  const stars = {stars: data.rating}
   return (
     <div>
       <div>
-        <Stars />
+        <Stars data={stars} />
       </div>
       <div>
-        <h1 className="text-lg">Review Title</h1>
+        <h1 className="text-lg">{data.metadata.title}</h1>
         <p className="text-sm">
-          Lorem ipseum dolor. Lorem ipseum dolor. Lorem ipseum dolor. Lorem
-          ipseum dolor.
+          {data.metadata.content}
         </p>
       </div>
     </div>
