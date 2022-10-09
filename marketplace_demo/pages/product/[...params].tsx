@@ -94,5 +94,3 @@ export default function ProductPage() {
     </Page>
   );
 }
-
-export default ProductPage
