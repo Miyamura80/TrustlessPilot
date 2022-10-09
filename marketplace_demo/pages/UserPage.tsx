@@ -23,8 +23,8 @@ export default function UserPage() {
   const [error, setError] = useState(null);
  
   useEffect(() => {
-   fetch(`localhost:8000/user/${walletAddress}`)
-    .then((response) => "TEST" + console.log(response));
+   fetch(`http://localhost:8000/user/${walletAddress}`)
+    .then((response) => console.log(response.json));
   }, []);
  
 
