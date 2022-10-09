@@ -22,6 +22,10 @@ router.get(
       const { walletAddress } = req.params;
       console.log(walletAddress)
       const userProfile = await queryProfile(walletAddress);
+      if (!userProfile) {
+        res.status(404).json({status: 404, message: "User not on lens"});
+        return;
+      }
       const worldCoinVerified = await verifyWorldcoin(userProfile['profiles'][0]['profileId']);
       userProfile['profiles'][0]['worldCoinVerified'] = worldCoinVerified;
 
