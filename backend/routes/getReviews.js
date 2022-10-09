@@ -22,7 +22,6 @@ router.get(
     const reviews = await queryReviews(chainId, contractAddress, tokenId);
 
     const updatedReviews = await updateReviews(reviews);
-    console.log('reviews', updatedReviews);
 
     res.status(200).json(updatedReviews);
   }
