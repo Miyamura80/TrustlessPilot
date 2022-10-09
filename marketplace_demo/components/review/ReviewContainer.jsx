@@ -9,7 +9,7 @@ export default function ReviewContainer(data) {
   const reviews = data.data;
   console.log(reviews);
   return (
-    <div className="w-1/2 p-4 border-4 rounded-xl">
+    <div className="w-1/2 p-4 rounded-xl">
         <div className="mb-8">
             <RatingBreakdown></RatingBreakdown>
         </div>

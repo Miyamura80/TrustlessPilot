@@ -18,7 +18,7 @@ export default function RatingBreakdown() {
   return (
     <div className="bg-white rounded-2xl p-4">
         <div className="flex flex-wrap items-center">
-        <div className="text-xl pl-4">Reviews | {rating}</div>
+        <div className="text-xl pl-4">Rating  |  {rating}</div>
         <div className="ml-2">
             <AiFillStar size="20" />
         </div>
