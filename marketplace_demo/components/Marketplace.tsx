@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Link from 'next/link';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Hero } from './marketplace-features';
@@ -89,62 +89,51 @@ export default function Marketplace() {
         <div className="px-4" style={{ maxWidth: "1600px" }}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             {nfts.map((nft, i) => (
-              <div key={i} className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black" onClick={() => {
-                setContext({
-                  contractAddr: nft.contractAddr,
-                  chainId: nft.chainId,
-                  price: nft.price,
-                  tokenId: nft.tokenId,
-                  seller: nft.seller,
-                  owner: nft.owner,
-                  image: nft.image,
-                  name: nft.name,
-                  description: nft.description,
-                });
-                router.push(`/product/${nft.tokenId}`)
-              }}>
-                <div className="flex flex-row justify-center my-3">
-                <Image
-                  className="rounded-3xl"
-                  src={nft.image}
-                  alt="NFT file"
-                  width={340}
-                  height={257}
-                  quality={100}
-                />
-                </div>
-                <div className="p-4">
-                  <p
-                    style={{ height: "64px" }}
-                    className="text-2xl font-semibold"
-                  >
-                    {nft.name}
-                  </p>
-                  <div style={{ height: "70px", overflow: "hidden" }}>
-                    <p className="text-gray-400">{nft.description}</p>
+              <Link key={i} href={`/product/${nft.chainId}/${nft.contractAddr}/${nft.tokenId}/`} passHref>
+                <div className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black hover:cursor-pointer hover:scale-105 duration-200">
+                  <div className="flex flex-row justify-center my-3">
+                  <Image
+                    className="rounded-3xl"
+                    src={nft.image}
+                    alt="NFT file"
+                    width={340}
+                    height={257}
+                    quality={100}
+                  />
                   </div>
-                </div>
-                <div className="p-4 bg-zinc-800 dark:bg-zinc-900">
-                  <div className="text-2xl font-bold text-white flex flex-row items-center justify-center">
-                    {nft.price}{" "}
-                    <div className="mx-2">
-                      <Image
-                        src="/Polygon-Matic-Logo.png"
-                        alt="Polygon Matic Logo"
-                        width={20}
-                        height={20}
-                      />
+                  <div className="p-4">
+                    <p
+                      style={{ height: "64px" }}
+                      className="text-2xl font-semibold"
+                    >
+                      {nft.name}
+                    </p>
+                    <div style={{ height: "70px", overflow: "hidden" }}>
+                      <p className="text-gray-400">{nft.description}</p>
                     </div>
-                    MATIC
                   </div>
-                  <button
-                    className="mt-4 w-full bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 text-white font-bold py-2 px-12 rounded-3xl shadow-lg"
-                    onClick={() => console.log("buy nft")}
-                  >
-                    Buy
-                  </button>
+                  <div className="p-4 bg-zinc-800 dark:bg-zinc-900">
+                    <div className="text-2xl font-bold text-white flex flex-row items-center justify-center">
+                      {nft.price}{" "}
+                      <div className="mx-2">
+                        <Image
+                          src="/Polygon-Matic-Logo.png"
+                          alt="Polygon Matic Logo"
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                      MATIC
+                    </div>
+                    <button
+                      className="mt-4 w-full bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 text-white font-bold py-2 px-12 rounded-3xl shadow-lg"
+                      onClick={() => console.log("buy nft")}
+                    >
+                      Buy
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

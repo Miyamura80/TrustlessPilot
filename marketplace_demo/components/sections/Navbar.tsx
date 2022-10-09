@@ -17,7 +17,9 @@ export function Navbar() {
       <div className="py-10 flex flex-col w-full justify-around desktop:hidden">
         <div className="inline-flex tablet:flex justify-around">
           <div className="flex p-2 items-center">
-            <p className="flex font-bold text-3xl">KeyboardLand</p>
+            <Link href="/" passHref>
+              <p className="flex font-bold text-3xl hover:cursor-pointer">KeyboardLand</p>
+            </Link>
           </div>
 
           <div className="inline-flex items-center space-x-4">
