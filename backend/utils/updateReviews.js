@@ -16,7 +16,6 @@ async function updateReviews(arrOfReviews) {
  */
 
 async function addFields(review) {
-<<<<<<< HEAD
   const { metadataUri, reviewId } = review;
   const ratingsArr = await queryReviewRatings(reviewId);
   let weight = new Weight();
@@ -29,9 +28,7 @@ async function addFields(review) {
   review.rating = ratingsArr.length < 1 ? 0 : ratingSum / ratingsArr.length;
   review.metadata = readFromCache(metadataUri);
   review.weight = weight;
-=======
-  review.rating = await getReviewScore(review)
->>>>>>> 76c2c4e9a1c48b85bc80f709fe1d101f2e66b030
+  review.rating = await getReviewScore(review);
   return review;
 }
 /**

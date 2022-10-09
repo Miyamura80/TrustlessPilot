@@ -22,6 +22,9 @@
     "ipfs-http-client": "^56.0.2",
     "jade": "~1.11.0",
     "keccak256": "^1.0.6",
+    "lokijs": "^1.5.12",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.5",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.20",
     "urql": "^3.0.3"
