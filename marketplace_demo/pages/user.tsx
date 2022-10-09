@@ -1,9 +1,5 @@
 import { Page } from "../components/Page";
 import ReviewText from "../components/review/ReviewText";
-import Image from "next/image";
-import { MdVerified } from "react-icons/md";
-import { FaVoteYea } from "react-icons/fa";
-import { BsPencilSquare } from "react-icons/bs";
 import Voting from "../components/review/Voting";
 import { useState, useEffect } from "react";
 import { formatAddress } from '../utils/formatting';
@@ -11,12 +7,13 @@ import { WorldcoinWidget } from '../components/profile'
 import { useRouter } from 'next/router'
 import ReviewContainer from "../components/review/ReviewContainer";
 
+
 export default function UserPage() {
   const router = useRouter();
-  const walletAddress = "0xF7C012789aac54B5E33EA5b88064ca1F1172De05";
   const verifiedHuman = true;
   const globalScore = 2000;
 
+  const [walletAddress, setWalletAddress] = useState("");
   const [isReady, setIsReady] = useState(router.isReady)
   const [isLoading, setIsLoading] = useState(true)
   const [hasMounted, setHasMounted] = useState(false)
@@ -25,6 +22,7 @@ export default function UserPage() {
   const [activeTab, setActiveTab] = useState('reviews')
 
   useEffect(() => {
+    if (!walletAddress) return;
     fetch(`http://localhost:8000/user/${walletAddress}`)
       .then((response) => response.json())
       .then((data) => {
@@ -33,10 +31,13 @@ export default function UserPage() {
       })
       .then(() => setIsLoading(false))
       .catch((error) => console.log(error));
-  }, [])
+  }, [walletAddress])
 
   useEffect(() => {
     setIsReady(router.isReady)
+    if (router.query['ad']) {
+      setWalletAddress(router.query['ad'])
+    }
   }, [router])
 
   useEffect(() => {
@@ -122,6 +123,7 @@ export default function UserPage() {
             ? <ReviewContainer data={reviews} />
             : <></>
             }
+
           </div>
         </div>
       </div>

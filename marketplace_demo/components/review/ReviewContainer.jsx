@@ -10,14 +10,16 @@ export default function ReviewContainer(data) {
   console.log(reviews);
   return (
     <div className="w-1/2 p-4 border-4 rounded-xl">
-      <RatingBreakdown></RatingBreakdown>
+        <div className="mb-8">
+            <RatingBreakdown></RatingBreakdown>
+        </div>
       <hr></hr>
       {reviews ? reviews.map((review, index) => {
         return (
           <SingleReview data={review} key={index} />
       )}) : <div>No reviews yet!</div> }
       <hr></hr>
-      <div className="mt-4">
+      <div className="mt-8">
         <WriteReview />
       </div>
     </div>
