@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Hero } from './marketplace-features';
+import { useRouter } from 'next/router'
+import { useProductContext } from "../pages/_app";
 
 export default function Marketplace() {
   const [nfts, setNfts] = useState<any[]>([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
+  const [context, setContext] = useProductContext();
+  const router = useRouter()
 
   useEffect(() => {
     loadNFTs();
@@ -90,7 +94,18 @@ export default function Marketplace() {
         <div className="px-4" style={{ maxWidth: "1600px" }}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             {nfts.map((nft, i) => (
-              <div key={i} className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black">
+              <div key={i} className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black" onClick={() => {
+                setContext({
+                  price: nft.price,
+                  tokenId: nft.tokenId,
+                  seller: nft.seller,
+                  owner: nft.owner,
+                  image: nft.image,
+                  name: nft.name,
+                  description: nft.description,
+                });
+                router.push(`/product/${nft.tokenId}`)
+              }}>
                 <div className="flex flex-row justify-center my-3">
                 <Image
                   className="rounded-3xl"

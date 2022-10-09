@@ -1,0 +1,1 @@
+export { WorldcoinWidget } from './worldcoin';
