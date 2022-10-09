@@ -5,14 +5,12 @@ import ReviewText from './ReviewText'
 export default function SingleReview(review) {
     console.log('review ', review)
     return (
-    <div className="flex flex-row m-2">
+    <div className="flex flex-row m-2 dark:text-gray-300">
         <div className="flex-shrink mr-4 mt-4">
           <Voting></Voting>
         </div>
-        <div className="flex-1 w-42 bg-white rounded-2xl">
-
-
-            <div className="bg-white p-4 rounded-xl">
+        <div className="flex-1 w-42 bg-white dark:bg-gray-700 dark:border-gray-600 rounded-2xl">
+            <div className="p-4 rounded-xl">
                 <div className="flex items-center mb-4">
                     <Link href="/UserPage">
                         <div className='flex-shrink'>
