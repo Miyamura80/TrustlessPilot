@@ -5,7 +5,7 @@ const createHttpLink = require('apollo-link-http').createHttpLink;
 const InMemoryCache = require('apollo-cache-inmemory').InMemoryCache;
 
 const client = new ApolloClient({
-  link: createHttpLink({ uri: 'https://api-mumbai.lens.dev/', fetch }),
+  link: createHttpLink({ uri: 'https://api.thegraph.com/subgraphs/name/rtomas/lens-subgraph', fetch }),
   cache: new InMemoryCache(),
 });
 

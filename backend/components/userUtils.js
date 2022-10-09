@@ -5,4 +5,4 @@ const getUserReviews = function () {}
 const calculateReputation = function () {}
 const calculateOpinion = function () {}
 
-module.exports = userUtils;
+// module.exports = { getUserReviews: getUserReviews };
