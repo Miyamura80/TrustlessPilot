@@ -2,7 +2,7 @@
 const { queryReviewsByAuthor } = require("../components/subgraph/queries");
 const { getReviewScore } = require("../utils/reviewUtils");
 
-export class User {
+class User {
 
     constructor(lensProfile) {
         this.profile = lensProfile
@@ -44,3 +44,4 @@ export class User {
     calculateOpinion() {}
   }
 
+module.exports.User = User
