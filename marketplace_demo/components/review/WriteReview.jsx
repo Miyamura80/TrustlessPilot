@@ -11,7 +11,7 @@ export default function WriteReview() {
               id="comment"
               rows="4"
               class="px-4 py-2 w-full text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-              placeholder="Write a comment..."
+              placeholder="Write a review..."
               required=""
             ></textarea>
           </div>
