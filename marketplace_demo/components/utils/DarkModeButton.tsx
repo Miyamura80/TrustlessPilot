@@ -18,14 +18,12 @@ export function DarkModeButton() {
   }
 
   return (
-    <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.9 }}>
-      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")} className="hover:scale-105 duration-200 mx-3">
         {theme === "light" ? (
-          <MdDarkMode size="34" />
+          <MdDarkMode size="45" />
         ) : (
-          <BsFillSunFill size="34" />
+          <BsFillSunFill size="45" />
         )}
       </button>
-    </motion.div>
   );
 }

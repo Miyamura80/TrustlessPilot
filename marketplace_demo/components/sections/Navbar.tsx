@@ -117,23 +117,23 @@ export function Navbar() {
 
       {/* MOBILE NAVBAR */}
 
-      <div className=" flex flex-col w-full  justify-between desktop:hidden">
-        <div className="inline-flex tablet:flex justify-around w-full">
-          <div className="flex p-2 space-x-3">
-            <Image
+      <div className="py-10 flex flex-col w-full justify-around desktop:hidden">
+        <div className="inline-flex tablet:flex justify-around">
+          <div className="flex p-2 items-center">
+            {/*<Image
               src="/keyboard.png"
-              alt="LooksSea logo"
-              width={"40px"}
-              height={"40px"}
-            />
-            <p className="hidden tablet:flex font-bold text-4xl">LooksSea</p>
+              alt="Logo"
+              width={40}
+              height={40}
+            />*/}
+            <p className="flex font-bold text-3xl">KeyboardLand</p>
           </div>
 
           <div className="inline-flex items-center space-x-4">
             <DarkModeButton />
 
             { !isConnected
-              ? (<button type="button" onClick={() => connectUserWallet()} className="py-1 px-3 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+              ? (<button type="button" onClick={() => connectUserWallet()} className="inline-flex justify-center items-center gap-2 rounded-3xl font-semibold bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 text-white hover:scale-105 duration-200 text-xl py-2 px-4">
                   Connect to Wallet
                 </button>)
               : (<div className="flex flex-row">
@@ -160,7 +160,7 @@ export function Navbar() {
             }
 
 
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            {/*<button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? (
                 <>
                   <TemporaryDrawer />
@@ -169,7 +169,7 @@ export function Navbar() {
               ) : (
                 <AiOutlineMenu className="-mt-1" size="36" /> // -mt-1 is there to align this icon with the others
               )}
-            </button>
+            </button>*/}
           </div>
         </div>
       </div>

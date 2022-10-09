@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Hero } from './marketplace-features';
 
 export default function Marketplace() {
   const [nfts, setNfts] = useState<any[]>([]);
@@ -21,6 +22,13 @@ export default function Marketplace() {
       {price:73,tokenId:418163,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/2301/4381/products/Untitled-1000000-862586_large.jpg?v=1645125459", name: "Razer Pro Type Mechanical Keyboard", description: "Silent mechanical keyboard with superior ergonomic support, designed for productivity offers a quiet, distraction-free experience in the office or at home."},
       {price:90,tokenId:198376,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338", name: "Satechi Slim X2 Bluetooth Keyboard", description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ..."},
       {price:72,tokenId:341814,seller:"Eito",owner:"Konrad", image: "https://i.linio.com/p/6a8e19edc84b5bd450d68445d7534630-product.jpg", name: "Logitech Ergo K860", description: "Type more naturally with ERGO K860 - an advanced ergonomic keyboard that promotes a more relaxed typing posture – reducing wrist bending by 25% and offering ..."},
+      {price:60,tokenId:931874,seller:"Eito",owner:"Konrad", image: "https://m.media-amazon.com/images/I/71Bth-gHViL.jpg", name: "Logitech K780 Wireless Keyboard", description: "The aptly named Logitech K780 Multi-Device keyboard, like many others on the market, is able to connect to any number of Bluetooth-enabled .."},
+      {price:80,tokenId:392871,seller:"Eito",owner:"Konrad", image: "https://pyxis.nymag.com/v1/imgs/4d9/076/3a3370deb182b80681bc8fbb59c1dbdfc8.rsquare.w600.jpg", name: "Keychron K2 (K2-C1H) Aluminum Gateron", description: "K2 is a super tactile wireless or wired keyboard giving you all the keys and function you need while keeping it compact, with the largest battery seen in a mechanical keyboard"},
+      {price:73,tokenId:418163,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/2301/4381/products/Untitled-1000000-862586_large.jpg?v=1645125459", name: "Razer Pro Type Mechanical Keyboard", description: "Silent mechanical keyboard with superior ergonomic support, designed for productivity offers a quiet, distraction-free experience in the office or at home."},
+      {price:90,tokenId:198376,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338", name: "Satechi Slim X2 Bluetooth Keyboard", description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ..."},
+      {price:72,tokenId:341814,seller:"Eito",owner:"Konrad", image: "https://i.linio.com/p/6a8e19edc84b5bd450d68445d7534630-product.jpg", name: "Logitech Ergo K860", description: "Type more naturally with ERGO K860 - an advanced ergonomic keyboard that promotes a more relaxed typing posture – reducing wrist bending by 25% and offering ..."},
+      {price:72,tokenId:341814,seller:"Eito",owner:"Konrad", image: "https://i.linio.com/p/6a8e19edc84b5bd450d68445d7534630-product.jpg", name: "Logitech Ergo K860", description: "Type more naturally with ERGO K860 - an advanced ergonomic keyboard that promotes a more relaxed typing posture – reducing wrist bending by 25% and offering ..."},
+      {price:60,tokenId:931874,seller:"Eito",owner:"Konrad", image: "https://m.media-amazon.com/images/I/71Bth-gHViL.jpg", name: "Logitech K780 Wireless Keyboard", description: "The aptly named Logitech K780 Multi-Device keyboard, like many others on the market, is able to connect to any number of Bluetooth-enabled .."},
       {price:60,tokenId:931874,seller:"Eito",owner:"Konrad", image: "https://m.media-amazon.com/images/I/71Bth-gHViL.jpg", name: "Logitech K780 Wireless Keyboard", description: "The aptly named Logitech K780 Multi-Device keyboard, like many others on the market, is able to connect to any number of Bluetooth-enabled .."},
     ]
     setNfts(items);
@@ -68,28 +76,31 @@ export default function Marketplace() {
   ) : (
     <motion.div
       variants={{
-        hidden: { opacity: 0, x: 200, y: 0 },
+        hidden: { opacity: 0, x: 0, y: 200 },
         enter: { opacity: 1, x: 0, y: 0 },
-        exit: { opacity: 0, x: 0, y: -100 },
+        exit: { opacity: 0, x: 0, y: 0 },
       }} // Pass the variant object into Framer Motion
       initial="hidden" // Set the initial state to variants.hidden
       animate="enter" // Animated state to variants.enter
       exit="exit" // Exit state (used later) to variants.exit
       transition={{ type: "linear", duration: 1 }} // Set the transition to linear
     >
-      <div className="flex justify-center">
+      <Hero/>
+      <div className="flex justify-center mt-20">
         <div className="px-4" style={{ maxWidth: "1600px" }}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             {nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
+              <div key={i} className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black">
+                <div className="flex flex-row justify-center my-3">
                 <Image
-                  className="rounded"
+                  className="rounded-3xl"
                   src={nft.image}
                   alt="NFT file"
-                  width={350}
+                  width={340}
                   height={257}
                   quality={100}
                 />
+                </div>
                 <div className="p-4">
                   <p
                     style={{ height: "64px" }}
@@ -101,19 +112,21 @@ export default function Marketplace() {
                     <p className="text-gray-400">{nft.description}</p>
                   </div>
                 </div>
-                <div className="p-4 bg-black">
-                  <div className="text-2xl font-bold text-white">
+                <div className="p-4 bg-zinc-800 dark:bg-zinc-900">
+                  <div className="text-2xl font-bold text-white flex flex-row items-center justify-center">
                     {nft.price}{" "}
-                    <Image
-                      src="/Polygon-Matic-Logo.png"
-                      alt="Polygon Matic Logo"
-                      width={25}
-                      height={25}
-                    />
+                    <div className="mx-2">
+                      <Image
+                        src="/Polygon-Matic-Logo.png"
+                        alt="Polygon Matic Logo"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
                     MATIC
                   </div>
                   <button
-                    className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
+                    className="mt-4 w-full bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 text-white font-bold py-2 px-12 rounded-3xl shadow-lg"
                     onClick={() => console.log("buy nft")}
                   >
                     Buy

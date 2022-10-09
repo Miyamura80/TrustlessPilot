@@ -1,5 +1,8 @@
+<<<<<<< Updated upstream
 // import { ConnectButton, ThemeButton } from './HeaderComponents';
 
+=======
+>>>>>>> Stashed changes
 export function Header() {
   return (
     <nav className="flex flex-row justify-between p-4 items-center sm:p-6 mx-8 lg:mx-20 mt-2">

@@ -4,7 +4,8 @@ var router = express.Router();
  * @TODO TEEST WITH THEGRAPH
  */
 const { queryProfile } = require("../components/lens/queries");
-const { User } = require("../classes/User")
+const { User } = require("../classes/User");
+const { verifyWorldcoin } = require("../components/worldcoin/verifyWorldcoin");
 
 router.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -21,7 +22,8 @@ router.get(
       const { walletAddress } = req.params;
       console.log(walletAddress)
       const userProfile = await queryProfile(walletAddress);
-      console.log(userProfile);
+      const worldCoinVerified = await verifyWorldcoin(userProfile['profiles'][0]['profileId']);
+      userProfile['profiles'][0]['worldCoinVerified'] = worldCoinVerified;
 
       const currentUser = new User(userProfile)
       // calculate reputation, personal opinion, friendship

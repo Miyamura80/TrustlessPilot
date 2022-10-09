@@ -12,6 +12,7 @@ function queryProfile(address) {
           totalFollowers
           totalFollowings
           imageURI
+          profileId
         }
       }
     }
