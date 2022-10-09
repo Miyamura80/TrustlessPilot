@@ -152,6 +152,11 @@ export default function ProductPage() {
                 </div>
 
               </div>
+        </div>
+        <h3 className="text-3xl font-semibold text-center mt-20">
+          Reviews
+        </h3>
+        <div className="flex justify-center my-12">
           <ReviewContainer reviews={reviews} showReviewDialog={true} showRatingBreakdown={true} />
         </div>
       </motion.div>

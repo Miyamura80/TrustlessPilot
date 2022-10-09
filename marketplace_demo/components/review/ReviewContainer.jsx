@@ -7,7 +7,7 @@ import WriteReview from "./WriteReview";
 export default function ReviewContainer(props) {
   const {reviews, showReviewDialog, showRatingBreakdown} = props
   return (
-    <div className="w-1/2 p-4 border-4 rounded-xl">
+    <div className="w-1/2 p-4 rounded-xl">
       { showRatingBreakdown === true
         ? <><RatingBreakdown /><hr></hr></>
         : <></>
