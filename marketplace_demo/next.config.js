@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     domains: [
-      'pyxis.nymag.com', 
+      'pyxis.nymag.com',
       'i.ebayimg.com"',
       'cdn.shopify.com',
       'i.linio.com',
@@ -13,5 +12,3 @@ const nextConfig = {
     ],
   }
 }
-
-module.exports = nextConfig

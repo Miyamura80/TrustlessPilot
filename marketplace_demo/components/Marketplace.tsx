@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-
+import Link from 'next/link';
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Hero } from './marketplace-features';
+import { useRouter } from 'next/router'
 
 export default function Marketplace() {
   const [nfts, setNfts] = useState<any[]>([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
+  const router = useRouter()
 
   useEffect(() => {
     loadNFTs();
@@ -17,11 +20,17 @@ export default function Marketplace() {
      *  them as well as fetch their token metadata
      */
     const items = [
-      {price:80,tokenId:0,seller:"Eito",owner:"Konrad", image: "https://pyxis.nymag.com/v1/imgs/4d9/076/3a3370deb182b80681bc8fbb59c1dbdfc8.rsquare.w600.jpg", name: "Keychron K2 (K2-C1H) Aluminum Gateron", description: "K2 is a super tactile wireless or wired keyboard giving you all the keys and function you need while keeping it compact, with the largest battery seen in a mechanical keyboard"},
-      {price:73,tokenId:1,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/2301/4381/products/Untitled-1000000-862586_large.jpg?v=1645125459", name: "Razer Pro Type Mechanical Keyboard", description: "Silent mechanical keyboard with superior ergonomic support, designed for productivity offers a quiet, distraction-free experience in the office or at home."},
-      {price:90,tokenId:2,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338", name: "Satechi Slim X2 Bluetooth Keyboard", description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ..."},
-      {price:72,tokenId:3,seller:"Eito",owner:"Konrad", image: "https://i.linio.com/p/6a8e19edc84b5bd450d68445d7534630-product.jpg", name: "Logitech Ergo K860", description: "Type more naturally with ERGO K860 - an advanced ergonomic keyboard that promotes a more relaxed typing posture – reducing wrist bending by 25% and offering ..."},
-      {price:60,tokenId:4,seller:"Eito",owner:"Konrad", image: "https://m.media-amazon.com/images/I/71Bth-gHViL.jpg", name: "Logitech K780 Wireless Keyboard", description: "The aptly named Logitech K780 Multi-Device keyboard, like many others on the market, is able to connect to any number of Bluetooth-enabled .."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:80,tokenId:0,seller:"Eito",owner:"Konrad", image: "https://pyxis.nymag.com/v1/imgs/4d9/076/3a3370deb182b80681bc8fbb59c1dbdfc8.rsquare.w600.jpg", name: "Keychron K2 (K2-C1H) Aluminum Gateron", description: "K2 is a super tactile wireless or wired keyboard giving you all the keys and function you need while keeping it compact, with the largest battery seen in a mechanical keyboard"},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:73,tokenId:1,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/2301/4381/products/Untitled-1000000-862586_large.jpg?v=1645125459", name: "Razer Pro Type Mechanical Keyboard", description: "Silent mechanical keyboard with superior ergonomic support, designed for productivity offers a quiet, distraction-free experience in the office or at home."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:90,tokenId:2,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338", name: "Satechi Slim X2 Bluetooth Keyboard", description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ..."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:72,tokenId:3,seller:"Eito",owner:"Konrad", image: "https://i.linio.com/p/6a8e19edc84b5bd450d68445d7534630-product.jpg", name: "Logitech Ergo K860", description: "Type more naturally with ERGO K860 - an advanced ergonomic keyboard that promotes a more relaxed typing posture – reducing wrist bending by 25% and offering ..."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:60,tokenId:4,seller:"Eito",owner:"Konrad", image: "https://m.media-amazon.com/images/I/71Bth-gHViL.jpg", name: "Logitech K780 Wireless Keyboard", description: "The aptly named Logitech K780 Multi-Device keyboard, like many others on the market, is able to connect to any number of Bluetooth-enabled .."},
+      // {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:82,tokenId:5,seller:"Eito",owner:"Konrad", image: "https://mechanicalkeyboards.com/shop/images/products/large_VA87M2WLLPn2W_main.jpg", name: "Varmilo VA87M Moonlight", description: "Meet the new, upgraded VA Series V2! The amazing colorways you love have just received a quality upgrade! All keyboards in this series now come with a standard USB-C cable."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:65,tokenId:6,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/0582/0242/3501/products/kinesis-freestyle-edge-rgbakinekb0915418-901573_1800x1800.png?v=1648553879", name: "Kinesis Freestyle Edge RGB", description: "The Freestyle Edge RGB is the first split mechanical keyboard designed specifically for gaming. It was engineered with input from serious gamers to meet ..."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:72,tokenId:7,seller:"Eito",owner:"Konrad", image: "https://cdn.shopify.com/s/files/1/0582/0242/3501/products/royal-kludge-rk71arkgakb0415471-921294_1800x1800.png?v=1648553904", name: "Royal Kludge RK71", description: "A compact 71 key Bluetooth mechanical keyboard from Royal Kludge. The RK-Gaming RK71 is fully programmable so you can customise your layout and lighting."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:80,tokenId:8,seller:"Eito",owner:"Konrad", image: "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/7215/7215241_sd.jpg", name: "Logitech - K360 Full-size Wireless Scissor Keyboard", description: "Logitech K360 wireless keyboard is ready when you are. This compact and portable keyboard fits into your tight workspaces, small offices or wherever you take your laptop or computer ..."},
+      {contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2, price:67,tokenId:9,seller:"Eito",owner:"Konrad", image: "https://c1.neweggimages.com/ProductImage/32N-00EG-00002-S01.jpg", name: "MK1 PC Mechanical Gaming Keyboard", description: "7-Color LED BACKLIT KEYBOARD: The MK1 keyboard comes with RED LED backlighting. 87 standard conflict free keys, 12 multimedia keys. Space Saving Design: The Compact 87-keys Space-Saving Mechanical Keyboard Design ..."}
+
     ]
     setNfts(items);
     setLoadingState("loaded");
@@ -68,58 +77,63 @@ export default function Marketplace() {
   ) : (
     <motion.div
       variants={{
-        hidden: { opacity: 0, x: 200, y: 0 },
+        hidden: { opacity: 0, x: 0, y: 200 },
         enter: { opacity: 1, x: 0, y: 0 },
-        exit: { opacity: 0, x: 0, y: -100 },
+        exit: { opacity: 0, x: 0, y: 0 },
       }} // Pass the variant object into Framer Motion
       initial="hidden" // Set the initial state to variants.hidden
       animate="enter" // Animated state to variants.enter
       exit="exit" // Exit state (used later) to variants.exit
       transition={{ type: "linear", duration: 1 }} // Set the transition to linear
     >
-      <div className="flex justify-center">
+      <Hero/>
+      <div className="flex justify-center mt-20">
         <div className="px-4" style={{ maxWidth: "1600px" }}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             {nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <Image
-                  className="rounded"
-                  src={nft.image}
-                  alt="NFT file"
-                  width={350}
-                  height={257}
-                  quality={100}
-                />
-                <div className="p-4">
-                  <p
-                    style={{ height: "64px" }}
-                    className="text-2xl font-semibold"
-                  >
-                    {nft.name}
-                  </p>
-                  <div style={{ height: "70px", overflow: "hidden" }}>
-                    <p className="text-gray-400">{nft.description}</p>
-                  </div>
-                </div>
-                <div className="p-4 bg-black">
-                  <div className="text-2xl font-bold text-white">
-                    {nft.price}{" "}
-                    <Image
-                      src="/Polygon-Matic-Logo.png"
-                      alt="Polygon Matic Logo"
-                      width={25}
-                      height={25}
+              <Link key={i} href={`/product/${nft.chainId}/${nft.contractAddr}/${nft.tokenId}/`} passHref>
+                <div className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black hover:cursor-pointer hover:scale-105 duration-200 max-h-fit py-2">
+                  <div className="flex flex-col content-around">
+                    <div className="flex flex-row justify-center m-3">
+                    <img
+                      className="rounded-3xl h-[30vh] w-[40vh]"
+                      src={nft.image}
+                      alt="NFT file"
                     />
-                    MATIC
+                    </div>
+                    <div className="p-4">
+                      <p
+                        className="text-2xl font-semibold my-2"
+                      >
+                        {nft.name}
+                      </p>
+                      <div className="my-2">
+                        <p className="text-gray-400">{nft.description}</p>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <div className="text-2xl font-bold text-white flex flex-row items-center justify-center text-black dark:text-white">
+                        {nft.price}{" "}
+                        <div className="mx-2">
+                          <Image
+                            src="/Polygon-Matic-Logo.png"
+                            alt="Polygon Matic Logo"
+                            width={20}
+                            height={20}
+                          />
+                        </div>
+                        MATIC
+                      </div>
+                      <button
+                        className="mt-4 w-full bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 text-white font-bold py-2 px-12 rounded-3xl shadow-lg"
+                        onClick={() => console.log("buy nft")}
+                      >
+                        Buy
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
-                    onClick={() => console.log("buy nft")}
-                  >
-                    Buy
-                  </button>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

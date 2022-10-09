@@ -1,53 +1,62 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
-import { motion } from "framer-motion";
-import { Web3AuthConnector } from "@web3auth/web3auth-wagmi-connector";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
-import { publicProvider } from "wagmi/providers/public";
+import { useState, useEffect } from 'react'
+import '@rainbow-me/rainbowkit/styles.css';
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+  lightTheme
+} from '@rainbow-me/rainbowkit';
+import {
+  chain,
+  configureChains,
+  createClient,
+  WagmiConfig,
+} from 'wagmi';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
 
+const { chains, provider } = configureChains(
+  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+  [
+    alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+    publicProvider()
+  ]
+);
 
-const { chains, provider } = configureChains([chain.mainnet, chain.polygon], [publicProvider()]);
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors: [
-    new Web3AuthConnector({
-      chains,
-      options: {
-        enableLogging: true,
-        clientId: "BDe_C91ziyTzTzrs-JuKmrbziaJVTPIwqrAU1A6VdFfYygv9ZMn-EBYyDATChXVOTYtAGPq6aEBpDQQpTRqOe5I", // Get your own client id from https://dashboard.web3auth.io
-        network: "testnet", // web3auth network, "mainnet", "cyan", or "aqua"
-        chainId: "0x1", // chainId that you want to connect with
-      },
-    }),
-    new InjectedConnector({ chains }),
-  ],
-  provider,
+const { connectors } = getDefaultWallets({
+  appName: 'KeyboardLand',
+  chains
 });
 
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider
+})
 
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const [productContext, setProductContext] = useState({price:0,tokenId:0,seller:"",owner:"",image:"",name:"",description:""});
+
+
   return (
     <WagmiConfig client={wagmiClient}>
-      <motion.div
-        key={router.route}
-        initial="pageInitial"
-        animate="pageAnimate"
-        variants={{
-          pageInitial: {
-            opacity: 0,
-          },
-          pageAnimate: {
-            opacity: 1,
-          },
-        }}
-      >
+      <RainbowKitProvider chains={chains} theme={
+         lightTheme({
+          accentColor: 'rgb(34, 197, 94)',
+          accentColorForeground: '#ffffff',
+          fontStack: 'system',
+        })}
+        appInfo={{
+           appName: 'Signet',
+           learnMoreUrl: 'https://signet3.xyz',
+         }}>
         <ThemeProvider attribute="class">
           <Component {...pageProps} />
         </ThemeProvider>
-      </motion.div>
+      </RainbowKitProvider>
     </WagmiConfig>
   );
 }

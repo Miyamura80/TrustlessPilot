@@ -39,7 +39,7 @@ function queryReviewsByAuthor(authorWallet) {
   function getQuery(authorWallet) {
     return `
     {
-      reviewSubmittedEntities(where: { author: ${authorWallet} }) {
+      reviewSubmittedEntities(where: { author: "${authorWallet}" }) {
         id
         blockNumber
         timestamp
@@ -99,3 +99,4 @@ function queryReviewRatings(reviewId) {
 
 module.exports.queryReviews = queryReviews;
 module.exports.queryReviewRatings = queryReviewRatings;
+module.exports.queryReviewsByAuthor = queryReviewsByAuthor;

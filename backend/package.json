@@ -11,6 +11,7 @@
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-link-http": "^1.5.17",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "cross-fetch": "^3.1.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
@@ -20,14 +21,15 @@
     "http-errors": "~1.6.3",
     "ipfs-core": "^0.16.1",
     "ipfs-http-client": "^56.0.2",
-    "jade": "~1.11.0",
+    "jade": "^1.9.2",
     "keccak256": "^1.0.6",
     "lokijs": "^1.5.12",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.5",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.20",
-    "urql": "^3.0.3"
+    "urql": "^3.0.3",
+    "whatwg-url": "^11.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
