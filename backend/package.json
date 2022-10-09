@@ -25,7 +25,8 @@
     "keccak256": "^1.0.6",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.20",
-    "urql": "^3.0.3"
+    "urql": "^3.0.3",
+    "whatwg-url": "^11.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",

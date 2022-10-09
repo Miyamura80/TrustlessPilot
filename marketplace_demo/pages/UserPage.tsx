@@ -11,22 +11,23 @@ import { useState, useEffect } from "react"
 export default function UserPage() {
   const walletAddress = "0x0000000ab702853d1163d38d047fa351fa78e9d3";
   const verifiedHuman = true;
-  const followers = 124;
-  const following = 138;
   const globalScore = 2000;
 
-
-
-
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [followers, setFollowers] = useState(null);
+  const [following, setFollowing] = useState(null);
+  const [handle, setHandle] = useState(null);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
    fetch(`http://localhost:8000/user/${walletAddress}`)
     .then( (response) => response.json())
     .then( (data) => {
-        console.log('user data request ', data) // for format of data object look at subgraph/queries
+        console.log('initial data request', data)
+        setFollowers(data.profile.profiles[0].totalFollowers);
+        setFollowing(data.profile.profiles[0].totalFollowings);
+        setHandle(data.profile.profiles[0].handle);
+        setImage(data.profile.profiles[0].imageURI);
+        console.log('user data request ', followers) // for format of data object look at subgraph/queries
     })
     .catch((error) => console.log(error));
   }, []);
@@ -40,14 +41,14 @@ export default function UserPage() {
         <div className="basis-1/4 ml-10 mt-8 flex flex-col">
           <div>
             <img
-              src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-4-470x470.png"
+              src={image}
               height="200"
               width="200"
               className="border-4"
             />
           </div>
           <div className="flex items-center">
-            <div className="text-lg">degen.lens</div>
+            <div className="text-lg">{handle}</div>
 
             <Tooltip content="Verified human" placement="right">
               {verifiedHuman && (
