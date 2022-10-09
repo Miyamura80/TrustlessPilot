@@ -5,6 +5,7 @@ var router = express.Router();
  */
 const { queryProfile } = require("../components/lens/queries");
 const { userUtils } = require("../components/userUtils")
+const { User } = require("../classes/User")
 
 router.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -22,8 +23,10 @@ router.get(
       var userProfile = await queryProfile(walletAddress);
       console.log(userProfile);
 
+      const currentUser = new User(userProfile)
       // calculate reputation, personal opinion, friendship
-
+      currentUser.getReputation()
+      currentUser.getUserReviews()
       res.status(200).json(userProfile);
     }
   );
