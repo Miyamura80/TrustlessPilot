@@ -6,9 +6,13 @@ import { FaVoteYea } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import Voting from "../components/review/Voting";
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { formatAddress } from '../utils/formatting';
 import { WorldcoinWidget } from '../components/profile'
 import { useRouter } from 'next/router'
+=======
+import ReviewContainer from "../components/review/ReviewContainer";
+>>>>>>> 155a308de0a602750a6f4f6cb2c0e1e93bb9fc0d
 
 export default function UserPage() {
   const router = useRouter();

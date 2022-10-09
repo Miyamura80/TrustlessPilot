@@ -12,8 +12,8 @@ export function WorldcoinWidget({ signal }) {
       actionId="wid_f42f2f67a9d8792cd00242d52c7b30fa"
       signal={signal}
       enableTelemetry
-      onSuccess={(verificationResponse) => console.log('verification', verificationResponse)}
-      onError={(error) => console.error(error)}
+      onSuccess={(verificationResponse) => {console.log('verification', verificationResponse); console.log("verification success")}}
+      onError={(error) => {console.error(error); console.log("verification error")}}
     />
   )
 }

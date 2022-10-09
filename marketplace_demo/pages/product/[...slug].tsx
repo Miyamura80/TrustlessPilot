@@ -6,6 +6,8 @@ import Link from 'next/link';
 import ReviewContainer from '../../components/review/ReviewContainer';
 import { useState, useEffect } from "react";
 import { formatAddress } from '../../utils/formatting';
+const { myReviews } = require("../../../backend/utils/reviewUtils");
+
 
 
 export default function ProductPage() {
@@ -17,14 +19,27 @@ export default function ProductPage() {
     description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ...",
   })
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [data, setData] = useState(null);
+
   useEffect(() => {
-   fetch(`http://localhost:8000/get-reviews/2/0x727fEa0982F8f95902bfE40C53484d0DD1BbD623/3`)
+   fetch(`http://localhost:8000/get-reviews/${nft.chainId}/${nft.contractAddr}/${nft.tokenId}`)
     .then( (response) => response.json())
     .then( (data) => {
         console.log('product data request', data)
+        setData(data);
     })
+    .then(() => setIsLoading(false))
     .catch((error) => console.log(error));
-  }, []);
+  }, [nft]);
+
+  if (isLoading) return <div>loading</div>;
+
+
+  console.log("data ", data);
+  // const reviews = data.userReviews;    // legit version
+  const reviews = myReviews
 
   return (
     <Page>
@@ -91,12 +106,8 @@ export default function ProductPage() {
                   </Link>
                 </div>
 
-                <div className='my-4'>
-                  <p className='font-semibold text-black dark:text-white'>Token ID:</p>
-                  <p className='text-gray-600 dark:text-gray-300'>{nft.tokenId}</p>
-                </div>
-          </div>
-          {/*<ReviewContainer />*/}
+              </div>
+          <ReviewContainer data={reviews} />
         </div>
       </motion.div>
     </Page>
