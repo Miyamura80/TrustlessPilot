@@ -36,7 +36,7 @@ const ProductContext = React.createContext([]);
 const AuthContext = React.createContext([]);
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  const [productContext, setProductContext] = useState({price:0,tokenId:0,seller:"",owner:"",image:"",name:"",description:""});  
+  const [productContext, setProductContext] = useState({contractAddr:"", chainId: 2, price:0,tokenId:0,seller:"",owner:"",image:"",name:"",description:""});
 	const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
             <AuthContext.Provider value={[web3auth, setWeb3auth]}>
               <Component {...pageProps} />
             </AuthContext.Provider>
-          </ProductContext.Provider>        
+          </ProductContext.Provider>
         </ThemeProvider>
       </motion.div>
     </WagmiConfig>
