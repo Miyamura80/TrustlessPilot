@@ -1,9 +1,5 @@
 import { Page } from "../components/Page";
 import ReviewText from "../components/review/ReviewText";
-import Image from "next/image";
-import { MdVerified } from "react-icons/md";
-import { FaVoteYea } from "react-icons/fa";
-import { BsPencilSquare } from "react-icons/bs";
 import Voting from "../components/review/Voting";
 import { useState, useEffect } from "react";
 import { formatAddress } from '../utils/formatting';
