@@ -16,7 +16,7 @@ const myReviews = [{
     author: '0x0000000ab702853d1163d38d047fa351fa78e9d3',
     reviewId: '2',
     __typename: 'ReviewSubmittedEntity',
-    rating: 0,
+    rating: 3,
     metadata: {
       title: 'Placeholder title 1',
       score: 20,

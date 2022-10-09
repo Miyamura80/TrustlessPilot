@@ -33,16 +33,16 @@ export default function UserPage() {
   const reviews = data.userReviews;
   const profileData = data.profile.profiles[0];
 
-  const displayReviews = reviews.map((review): any => {
-    <div className="basis-3/5 flex-none flex border-2 rounded-xl p-6 m-4">
+  const displayReviews = reviews.map((review, index): any => {
+    return (<div key={index} className="basis-3/5 flex-none flex border-2 rounded-xl p-6 m-4">
       <div className="flex-auto mr-5">
         <Voting />
       </div>
       <div className="flex-auto">
         <h1 className="text-3xl mb-5">NFT image</h1>
-        <ReviewText data={reviews} />
+        <ReviewText data={review} />
       </div>
-    </div>;
+    </div>);
   });
 
   return (
@@ -89,9 +89,8 @@ export default function UserPage() {
           <Tabs.Item
             active={true}
             title="Reviews Written"
-            icon={BsPencilSquare}
-          >
-            {displayReviews}
+            icon={BsPencilSquare}>
+              {displayReviews}
           </Tabs.Item>
           <Tabs.Item title="Reviews Rated" icon={FaVoteYea}></Tabs.Item>
         </Tabs.Group>
