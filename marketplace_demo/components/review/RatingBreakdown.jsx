@@ -5,7 +5,7 @@ export default function RatingBreakdown() {
 
   const ratingBars = ratings.map((number, index) => (
 
-    <div className="flex items-center mx-6">
+    <div className="flex items-center mx-6" key={index}>
         <div className="w-20 flex-shrink text-sm">
             <p>{5 - index}-star</p>
         </div>
