@@ -1,4 +1,4 @@
-
+const { queryReviewRatings } = require('../components/subgraph/queries');
 
 async function getReviewScore(review) {
     const { reviewId } = review;

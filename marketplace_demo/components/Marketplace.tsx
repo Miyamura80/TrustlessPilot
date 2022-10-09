@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Hero } from './marketplace-features';
+import { useRouter } from 'next/router'
+import { useProductContext } from "../pages/_app";
 
 export default function Marketplace() {
   const [nfts, setNfts] = useState<any[]>([]);
   const [loadingState, setLoadingState] = useState("not-loaded");
+  const [context, setContext] = useProductContext();
+  const router = useRouter()
 
   useEffect(() => {
     loadNFTs();
@@ -68,28 +73,42 @@ export default function Marketplace() {
   ) : (
     <motion.div
       variants={{
-        hidden: { opacity: 0, x: 200, y: 0 },
+        hidden: { opacity: 0, x: 0, y: 200 },
         enter: { opacity: 1, x: 0, y: 0 },
-        exit: { opacity: 0, x: 0, y: -100 },
+        exit: { opacity: 0, x: 0, y: 0 },
       }} // Pass the variant object into Framer Motion
       initial="hidden" // Set the initial state to variants.hidden
       animate="enter" // Animated state to variants.enter
       exit="exit" // Exit state (used later) to variants.exit
       transition={{ type: "linear", duration: 1 }} // Set the transition to linear
     >
-      <div className="flex justify-center">
+      <Hero/>
+      <div className="flex justify-center mt-20">
         <div className="px-4" style={{ maxWidth: "1600px" }}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             {nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
+              <div key={i} className="shadow-md rounded-3xl overflow-hidden bg-white dark:bg-black" onClick={() => {
+                setContext({
+                  price: nft.price,
+                  tokenId: nft.tokenId,
+                  seller: nft.seller,
+                  owner: nft.owner,
+                  image: nft.image,
+                  name: nft.name,
+                  description: nft.description,
+                });
+                router.push(`/product/${nft.tokenId}`)
+              }}>
+                <div className="flex flex-row justify-center my-3">
                 <Image
-                  className="rounded"
+                  className="rounded-3xl"
                   src={nft.image}
                   alt="NFT file"
-                  width={350}
+                  width={340}
                   height={257}
                   quality={100}
                 />
+                </div>
                 <div className="p-4">
                   <p
                     style={{ height: "64px" }}
@@ -101,19 +120,21 @@ export default function Marketplace() {
                     <p className="text-gray-400">{nft.description}</p>
                   </div>
                 </div>
-                <div className="p-4 bg-black">
-                  <div className="text-2xl font-bold text-white">
+                <div className="p-4 bg-zinc-800 dark:bg-zinc-900">
+                  <div className="text-2xl font-bold text-white flex flex-row items-center justify-center">
                     {nft.price}{" "}
-                    <Image
-                      src="/Polygon-Matic-Logo.png"
-                      alt="Polygon Matic Logo"
-                      width={25}
-                      height={25}
-                    />
+                    <div className="mx-2">
+                      <Image
+                        src="/Polygon-Matic-Logo.png"
+                        alt="Polygon Matic Logo"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
                     MATIC
                   </div>
                   <button
-                    className="mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
+                    className="mt-4 w-full bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 text-white font-bold py-2 px-12 rounded-3xl shadow-lg"
                     onClick={() => console.log("buy nft")}
                   >
                     Buy

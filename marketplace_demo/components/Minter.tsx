@@ -12,8 +12,6 @@ HOW TO?
 
 import { useState } from "react";
 import { ethers } from "ethers";
-import { useWeb3React } from "@web3-react/core";
-import { create as ipfsHttpClient, Options } from "ipfs-http-client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
@@ -23,8 +21,7 @@ import { motion } from "framer-motion";
 
 import "react-toastify/dist/ReactToastify.css";
 
-// "https://ipfs.infura.io:5001"
-const client = ipfsHttpClient({ host: 'ipfs.infura.io', port: 5001 , protocol: 'https' }); // This works check https://www.npmjs.com/package/ipfs-http-client
+
 
 interface Inputs {
   nftName: string;
@@ -40,7 +37,6 @@ export default function Minter() {
     formState: { errors },
   } = useForm<Inputs>({});
 
-  const { active } = useWeb3React();
 
   const onSubmit = ({ nftName, nftDescription, nftPrice, nftFile }: Inputs) => {
     listNFTForSale({ nftName, nftDescription, nftPrice, nftFile });
@@ -48,49 +44,48 @@ export default function Minter() {
 
   const [fileUrl, setFileUrl] = useState("");
   const router = useRouter();
-  const web3reactContext = useWeb3React();
   const notify = () => {
     toast.error("Your wallet is not connected !!!");
   };
 
-  // Function for creating and updating the file url
-  async function onChange(e: any) {
-    // e is an event
-    const file = e.target.files[0];
-    try {
-      const added = await client.add(file, {
-        progress: (prog) => console.log(`received: ${prog}`),
-      });
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      setFileUrl(url);
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    }
-  }
+  // // Function for creating and updating the file url
+  // async function onChange(e: any) {
+  //   // e is an event
+  //   const file = e.target.files[0];
+  //   try {
+  //     const added = await client.add(file, {
+  //       progress: (prog) => console.log(`received: ${prog}`),
+  //     });
+  //     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+  //     setFileUrl(url);
+  //   } catch (error) {
+  //     console.log("Error uploading file: ", error);
+  //   }
+  // }
 
-  // Function saving an item to IPFS
-  async function uploadToIPFS({
-    nftName,
-    nftDescription,
-    nftPrice,
-    nftFile,
-  }: Inputs) {
-    if (!nftName || !nftDescription || !nftPrice || !nftFile) return;
-    // First, upload to IPFS
-    const data = JSON.stringify({
-      nftName,
-      nftDescription,
-      nftFile: fileUrl,
-    });
-    try {
-      const added = await client.add(data);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      // After file is uploaded to IPFS, return the URL to use it in the transaction
-      return url;
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    }
-  }
+  // // Function saving an item to IPFS
+  // async function uploadToIPFS({
+  //   nftName,
+  //   nftDescription,
+  //   nftPrice,
+  //   nftFile,
+  // }: Inputs) {
+  //   if (!nftName || !nftDescription || !nftPrice || !nftFile) return;
+  //   // First, upload to IPFS
+  //   const data = JSON.stringify({
+  //     nftName,
+  //     nftDescription,
+  //     nftFile: fileUrl,
+  //   });
+  //   try {
+  //     const added = await client.add(data);
+  //     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+  //     // After file is uploaded to IPFS, return the URL to use it in the transaction
+  //     return url;
+  //   } catch (error) {
+  //     console.log("Error uploading file: ", error);
+  //   }
+  // }
 
   // Function creating and listing an item for sale
   async function listNFTForSale({

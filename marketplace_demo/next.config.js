@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: [
-      'pyxis.nymag.com', 
+      'pyxis.nymag.com',
       'i.ebayimg.com"',
       'cdn.shopify.com',
       'i.linio.com',
