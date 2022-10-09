@@ -11,7 +11,7 @@ import { formatAddress } from '../../utils/formatting';
 export default function ProductPage() {
   const [nft, setNft] = useState({
     contractAddr: "0x727fea0982f8f95902bfe40c53484d0dd1bbd623", chainId: 2,
-    price:90, tokenId:2, seller:{ address: "0x526E0cFF86ab0f0b92ABa83e53d5B05bA2Bea956", ens: null }, owner:{ address: "0xF7C012789aac54B5E33EA5b88064ca1F1172De05", ens: "konradkopp.eth"},
+    price:90, tokenId:2, seller:{ address: "0x526E0cFF86ab0f0b92ABa83e53d5B05bA2Bea956", lens: null }, owner:{ address: "0xF7C012789aac54B5E33EA5b88064ca1F1172De05", lens: "kopykat.lens"},
     image: "https://cdn.shopify.com/s/files/1/1520/4366/products/slim-x2-bluetooth-backlit-keyboard-keyboards-satechi-499759_1024x.jpg?v=1621015338",
     name: "Satechi Slim X2 Bluetooth Keyboard",
     description: "Designed for Mac & iOS devices, the X2 Keyboard features a QWERTY layout with numeric keypad, multi-deviceBT, and shortcut keys optimized for Apple devices with ...",
@@ -74,7 +74,7 @@ export default function ProductPage() {
                   <Link href={'/user?ad=' + nft.seller.address} passHref>
                     <div className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-gray-600 dark:text-gray-300'>
                       <span className='bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out'>
-                        {nft.seller.ens ? nft.seller.ens : formatAddress(nft.seller.address)}
+                        {nft.seller.lens ? nft.seller.lens : formatAddress(nft.seller.address)}
                       </span>
                     </div>
                   </Link>
@@ -85,7 +85,7 @@ export default function ProductPage() {
                   <Link href={'/user?ad=' + nft.owner.address} passHref>
                     <div className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-gray-600 dark:text-gray-300'>
                       <span className='bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out'>
-                        {nft.owner.ens ? nft.owner.ens : formatAddress(nft.owner.address)}
+                        {nft.owner.lens ? nft.owner.lens : formatAddress(nft.owner.address)}
                       </span>
                     </div>
                   </Link>

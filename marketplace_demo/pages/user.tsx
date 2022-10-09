@@ -4,18 +4,22 @@ import Image from "next/image";
 import { MdVerified } from "react-icons/md";
 import { FaVoteYea } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
-import { Tooltip, Tabs } from "flowbite-react";
 import Voting from "../components/review/Voting";
 import { useState, useEffect } from "react";
+import { formatAddress } from '../utils/formatting';
+import { WorldcoinWidget } from '../components/profile'
+import { useRouter } from 'next/router'
 
 export default function UserPage() {
-  const walletAddress = "0x0000000ab702853d1163d38d047fa351fa78e9d3";
+  const router = useRouter();
+  const walletAddress = "0xF7C012789aac54B5E33EA5b88064ca1F1172De05";
   const verifiedHuman = true;
   const globalScore = 2000;
 
   const [isLoading, setIsLoading] = useState(true);
 
   const [data, setData] = useState(null);
+  const [activeTab, setActiveTab] = useState('reviews')
 
   useEffect(() => {
     fetch(`http://localhost:8000/user/${walletAddress}`)
@@ -34,12 +38,12 @@ export default function UserPage() {
   const profileData = data.profile.profiles[0];
 
   const displayReviews = reviews.map((review, index): any => {
-    return (<div key={index} className="basis-3/5 flex-none flex border-2 rounded-xl p-6 m-4">
-      <div className="flex-auto mr-5">
+    return (<div key={index} className="flex rounded-3xl shadow-sm justify-start p-6 m-4 bg-zinc-100 dark:bg-zinc-700 w-2/3 mx-auto">
+      <div className="flex items-center mr-8">
         <Voting />
       </div>
-      <div className="flex-auto">
-        <h1 className="text-3xl mb-5">NFT image</h1>
+      <div className="flex-col justify-center">
+        <h1 className="text-3xl mb-4">NFT image</h1>
         <ReviewText data={review} />
       </div>
     </div>);
@@ -48,52 +52,60 @@ export default function UserPage() {
   return (
     <Page>
       <div className="flex flex-row mt-6">
-        <div className="basis-1/4 ml-10 mt-8 flex flex-col">
+        <div className="w-1/3 ml-10 mt-8 flex flex-col justify-center">
           <div>
-            <img src="" height="200" width="200" className="border-4" />
+            <img src={profileData.imageURI} height="300" width="300" className="mx-auto rounded-3xl my-3" />
           </div>
-          <div className="flex items-center">
-            <div className="text-lg">
-              {profileData ? profileData.handle : ""}
+          <div className="flex items-center mx-auto">
+            <div className="text-2xl font-bold">
+              {profileData ? profileData.handle : formatAddress(walletAddress)}
             </div>
-
-            <Tooltip content="Verified human" placement="right">
-              {verifiedHuman && (
-                <div className="ml-1">
-                  <MdVerified color="MediumSlateBlue" />
-                </div>
-              )}
-            </Tooltip>
           </div>
-          <div className="text-sm text-violet-500">
-            {walletAddress.slice(0, 4)}...{walletAddress.slice(-4)}
+          <div className="text-base font-semibold text-green-500 mx-auto">
+            {profileData ? formatAddress(walletAddress) : ""}
           </div>
           <div className="mt-2">
-            <Tooltip content="User reliability" placement="right">
-              <p>{globalScore}</p>
-              <p className="text-sm text-slate-500">Reputation</p>
-            </Tooltip>
           </div>
-          <div className="flex mt-2">
+          <div className="flex mt-2 mx-auto">
             <div className="w-24 flex-none">
-              <p>{profileData ? profileData.totalFollowers : ""}</p>
-              <p className="text-sm text-slate-500">Followers</p>
+              <p className="text-center text-lg font-semibold">{profileData ? profileData.totalFollowers : ""}</p>
+              <p className="text-center text-slate-500">Followers</p>
             </div>
             <div className="flex-1">
-              <p>{profileData ? profileData.totalFollowings : ""}</p>
-              <p className="text-sm text-slate-500">Following</p>
+              <p className="text-center text-lg font-semibold">{profileData ? profileData.totalFollowings : ""}</p>
+              <p className="text-center text-slate-500">Following</p>
             </div>
           </div>
+          <div className="flex flex-row justify-center mt-6">
+            {profileData.worldCoinVerified ?
+            <img
+              src="https://assets.lenster.xyz/images/badges/worldcoin.png"
+              className="h-16 w-16"/>:
+            <WorldcoinWidget signal="43587" />}
+          </div>
         </div>
-        <Tabs.Group aria-label="Default tabs" style="default">
-          <Tabs.Item
-            active={true}
-            title="Reviews Written"
-            icon={BsPencilSquare}>
-              {displayReviews}
-          </Tabs.Item>
-          <Tabs.Item title="Reviews Rated" icon={FaVoteYea}></Tabs.Item>
-        </Tabs.Group>
+        <div className="flex flex-col w-2/3">
+          <div className="flex flex-row justify-center">
+            <h4 className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-black dark:text-white text-xl font-semibold mx-12' onClick={() => setActiveTab('reviews')}>
+              <span className={'bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out' + (activeTab == 'reviews' ? " bg-[length:100%_2px]" : " bg-[length:0%_2px]")}>
+                Reviews written
+              </span>
+            </h4>
+            <h4 className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-black dark:text-white text-xl font-semibold mx-12' onClick={() => setActiveTab('ratings')}>
+              <span className={'bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out' + (activeTab == 'ratings' ? " bg-[length:100%_2px]" : " bg-[length:0%_2px]")}>
+                Reviews rates
+              </span>
+            </h4>
+            <h4 className='block mt-4 md:inline-block md:mt-0 group transition-all duration-100 ease-in-out hover:cursor-pointer text-black dark:text-white text-xl font-semibold mx-12' onClick={() => setActiveTab('nfts')}>
+              <span className={'bg-left-bottom bg-gradient-to-r from-blue-500 via-blue-700 to-green-500 bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out' + (activeTab == 'nfts' ? " bg-[length:100%_2px]" : " bg-[length:0%_2px]")}>
+                NFTs owned
+              </span>
+            </h4>
+          </div>
+          <div className="flex flex-col justify-center my-4">
+            {activeTab == 'reviews' ? displayReviews : null}
+          </div>
+        </div>
       </div>
     </Page>
   );

@@ -20,9 +20,9 @@ export function DarkModeButton() {
   return (
       <button onClick={() => setTheme(theme === "light" ? "dark" : "light")} className="hover:scale-105 duration-200 mx-3">
         {theme === "light" ? (
-          <MdDarkMode size="45" />
+          <MdDarkMode size="45" color="#3b82f6"/>
         ) : (
-          <BsFillSunFill size="45" />
+          <BsFillSunFill size="45" color="#3b82f6"/>
         )}
       </button>
   );
