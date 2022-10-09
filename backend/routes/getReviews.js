@@ -1,8 +1,6 @@
-var express = require("express");
-var router = express.Router();
-/**
- * @TODO TEEST WITH THEGRAPH
- */
+const express = require("express");
+const router = express.Router();
+
 const { queryReviews } = require("../components/subgraph/queries");
 const updateReviews = require("../utils/updateReviews");
 
