@@ -32,17 +32,15 @@ export default function ProductPage() {
 
   useEffect(() => {
    if (!nftData) return;
-   console.log('nft', getKeyboard(nftData.tokenId))
-   console.log("in useEffect", nft)
    fetch(`http://localhost:8000/get-reviews/${nftData.chainId}/${nftData.contractAddr}/${nftData.tokenId}`)
     .then( (response) => response.json())
-    .then( (data) => {
-        console.log('product data request', data)
+    .then((data) => {
         setData(data);
+        console.log(getKeyboard(nftData.tokenId))
+        setNft(getKeyboard(nftData.tokenId)[0])
+        setIsLoading(false)
     })
-    .then(() => setIsLoading(false))
     .catch((error) => console.log(error));
-    setNft(getKeyboard(nftData.tokenId))
   }, [nftData]);
 
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function ProductPage() {
 
   console.log("data ", data);
   // const reviews = data.userReviews;    // legit version
-  const reviews = myReviews
+  const reviews = myReviews;
 
 
   return (
@@ -93,22 +91,6 @@ export default function ProductPage() {
                   width={500}
                   height={500}
                 />
-                <div className='pl-4 pt-4'><WorldcoinWidget signal={"43587"} setIsVerified={setIsVerified}/>
-                <div className='pt-4'>
-                { isVerified
-                ? (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-500">
-                    <span className="w-1.5 h-1.5 inline-block bg-lime-400 rounded-full"></span>
-                    Verified
-                  </span>
-                  )
-                : (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-500">
-                    <span className="w-1.5 h-1.5 inline-block bg-red-400 rounded-full"></span>
-                    Not Verified
-                  </span>
-                  )
-                }
-                </div>
-                </div>
               </div>
               <div className="p-8 mx-12 max-w-[30vw]">
                 <p

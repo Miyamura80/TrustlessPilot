@@ -7,7 +7,7 @@ import { WorldcoinWidget } from '../components/profile'
 import { useRouter } from 'next/router'
 import ReviewContainer from "../components/review/ReviewContainer";
 import { useAccount } from 'wagmi';
-
+const { profileReviews, otherReviews } = require("../../backend/utils/reviewUtils");
 
 export default function UserPage() {
   const router = useRouter();
@@ -383,7 +383,7 @@ export default function UserPage() {
     </Page>
   )};
 
-  const reviews = data.userReviews;
+  const reviews = profileReviews;
   const profileData = data.profile.profiles[0];
 
   return (
@@ -448,6 +448,12 @@ export default function UserPage() {
             { (activeTab == 'reviews' )
             ? <div className="flex justify-center">
               <ReviewContainer reviews={reviews} showReviewDialog={false} showRatingBreakdown={false} />
+              </div>
+            : <></>
+            }
+            { (activeTab == 'ratings' )
+            ? <div className="flex justify-center">
+              <ReviewContainer reviews={otherReviews} showReviewDialog={false} showRatingBreakdown={false} />
               </div>
             : <></>
             }

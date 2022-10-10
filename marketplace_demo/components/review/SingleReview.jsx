@@ -1,6 +1,7 @@
 import Voting from "./Voting";
 import Link from 'next/link';
 import ReviewText from './ReviewText'
+import { formatAddress } from '../../utils/formatting';
 
 export default function SingleReview(props) {
     const { review } = props
@@ -19,7 +20,7 @@ export default function SingleReview(props) {
                     </Link>
                     <div className="flex-auto cursor-pointer">
                         <h2 className="font-semibold">
-                            {review.name}
+                            {review.name.length > 40 ? formatAddress(review.name): review.name}
                         </h2>
                         <h2>
                             Reputation: {review.reputation}

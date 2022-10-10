@@ -26,18 +26,16 @@ export default function ReviewContainer(props) {
             <div className="mt-4">
               <WriteReview />
             </div>
-          </>
-        : <></>
-      }
-      <div className='pl-4 pt-4'><WorldcoinWidget signal={"43587"} setIsVerified={setIsVerified}/>
+
+      <div className='pl-4 pt-4 flex flex-col justify-center'><div className="mx-auto"><WorldcoinWidget signal={"43587"} setIsVerified={setIsVerified}/>
                 <div className='pt-4'>
-                { isVerified 
-                ? (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-500">
+                { isVerified
+                ? (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-500 mx-auto">
                     <span className="w-1.5 h-1.5 inline-block bg-lime-400 rounded-full"></span>
                     Verified
                   </span>
-                  ) 
-                : (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-500">
+                  )
+                : (<span className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-500 mx-auto">
                     <span className="w-1.5 h-1.5 inline-block bg-red-400 rounded-full"></span>
                     Not Verified
                   </span>
@@ -45,6 +43,9 @@ export default function ReviewContainer(props) {
                 }
       </div>
       </div>
+      </div>
+      </>: <></>
+    }
     </div>
   );
 }
